@@ -3,14 +3,14 @@ package image
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/docker"
 	"ledo/app/modules/context"
+	"ledo/app/modules/docker"
 )
 
 var CmdDockerFqn = cli.Command{
 	Name:        "fqn",
 	Aliases:     []string{"f"},
-	Usage:       "Docker image fqn",
+	Usage:       "docker image fqn",
 	Description: `Get fqn docker image defined as main service in config file`,
 	Action:      RunDockerFqn,
 }

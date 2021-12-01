@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/urfave/cli/v2"
 	"html/template"
 	"ledo/app/helper"
@@ -16,7 +17,7 @@ import (
 var CmdInit = cli.Command{
 	Name:        "init",
 	Category:    catSetup,
-	Usage:       "Init ledo in project",
+	Usage:       "init ledo in project",
 	Description: `Initialize LeadDocker in current project`,
 	Action:      runInitLedo,
 }
@@ -25,7 +26,7 @@ func runInitLedo(cmd *cli.Context) error {
 	var advRun bool
 	config, err := context.LoadConfigFile()
 	if err != nil {
-		return err
+		fmt.Printf("Ledo config file not found!")
 	}
 
 	data, err := interact.InitLedoProject(config.Docker)

@@ -22,7 +22,7 @@ func main() {
 	app := cli.NewApp()
 	compose.CheckDockerComposeVersion()
 	app.Name = "ledo"
-	app.Usage = "LeadDocker helper for docker-compose work"
+	app.Usage = "docker-compose and docker workflow improvement tool"
 	app.Description = appDescription
 	app.CustomAppHelpTemplate = helpTemplate
 	app.Version = GetCurrentVersion()
@@ -44,7 +44,16 @@ func main() {
 	}
 }
 
-var appDescription = `LeadDocker (ledo) docker-compose project helper
+var appDescription = `LeadDocker (ledo) is a simple tool for improve docker anddocker-compose workflow in your project.
+What you can do with this tool:
+=> create and manage docker-compose workflow in a project
+=> build docker image for project (automatic fqn and docker registry)
+=> login to the docker registry (with AWS ECR support)
+
+LeadDocker is helpful in a continuous methodologies. 
+If you want use it as a docker service, try dind image: https://hub.docker.com/r/paramah/dind
+
+Enjoy (-_-)
 `
 
 var helpTemplate = bold(`
@@ -53,7 +62,7 @@ var helpTemplate = bold(`
 | |__/ -_) _' / _' | |) / _ \/ _| / / -_) '_|
 |____\___\__,_\__,_|___/\___/\__|_\_\___|_|    {{.Version}} 
 
-   {{.Name}}{{if .Usage}} - {{.Usage}}{{end}}`) + `
+{{.Name}}{{if .Usage}} - {{.Usage}}{{end}}`) + `
 
  USAGE
    {{if .UsageText}}{{.UsageText}}{{else}}{{.HelpName}}{{if .Commands}} command [subcommand] [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}}{{end}}{{if .Description}}
@@ -71,16 +80,19 @@ var helpTemplate = bold(`
    {{end}}{{$option}}{{end}}{{end}}
 
  EXAMPLES
-   ledo init                       # init ledo in project
+   ledo init                       # init ledo in your project
    ledo docker ps                  # print list of docker containers
 
   
  ABOUT
-   Written & maintained by Aleksander "paramah" Cynarski 
-   Thanks for StreamSage Team (https://streamsage.io)
+   Written & maintained by Aleksander "paramah" Cynarski
 
-   More info about ledo  on https://leaddocker.tech
-`
+   More info about ledo on https://leaddocker.tech
+   `+bold(`
+   Thanks for:
+    StreamSage Team        https://streamsage.io
+    Jazzy Innovations Team https://jazzy.pro
+`)+"\n"
 
 func bold(t string) string {
 	return fmt.Sprintf("\033[1m%s\033[0m", t)

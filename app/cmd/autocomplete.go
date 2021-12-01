@@ -16,7 +16,7 @@ var CmdAutocomplete = cli.Command{
 	Name:        "shellcompletion",
 	Aliases:     []string{"autocomplete"},
 	Category:    catSetup,
-	Usage:       "Install shell completion for ledo",
+	Usage:       "install shell completion",
 	Description: "Install shell completion for ledo",
 	ArgsUsage:   "<shell type> (bash, zsh, powershell, fish)",
 	Flags: []cli.Flag{
@@ -84,7 +84,7 @@ func runAutocompleteAdd(ctx *cli.Context) error {
 }
 
 func writeRemoteAutoCompleteFile(file, destPath string) error {
-	url := fmt.Sprintf("https://git.cynarski.pl/LeDo/ledo/raw/branch/master/%s", file)
+	url := fmt.Sprintf("https://raw.githubusercontent.com/paramah/ledo/master/%s", file)
 	fmt.Println("Fetching " + url)
 
 	res, err := http.Get(url)
