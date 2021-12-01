@@ -1,0 +1,10 @@
+
+docker:
+  registry: registry.cynarski.pl
+  namespace: LeDo
+  name: ledo
+  main_service: ledo
+  shell: /bin/sh
+modes:
+  dev: docker/docker-compose.yml docker/docker-compose.dev.yml
+  launch: docker/docker-compose.yml

@@ -1,0 +1,8 @@
+
+dist/
+dist
+.env
+.ledo-mode
+main
+ledo
+.ledo-back.yml
