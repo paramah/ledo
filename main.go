@@ -44,7 +44,7 @@ func main() {
 	}
 }
 
-var appDescription = `LeadDocker (ledo) is a simple tool for improve docker anddocker-compose workflow in your project.
+var appDescription = `LeadDocker (ledo) is a simple tool for improve docker and docker-compose workflow in your project.
 What you can do with this tool:
 => create and manage docker-compose workflow in a project
 => build docker image for project (automatic fqn and docker registry)

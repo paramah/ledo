@@ -56,7 +56,7 @@ func ExecDockerPush(ctx *context.LedoContext, command cli.Args) {
 	}
 	image := ShowDockerImageFQN(ctx)
 	args = append(args, "push")
-	args = append(args, "-f", image + ":" + version)
+	args = append(args, image + ":" + version)
 	ctx.ExecCmd("docker", args[0:])
 }
 
