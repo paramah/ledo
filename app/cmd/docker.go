@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"github.com/paramah/ledo/app/cmd/docker"
 	"github.com/urfave/cli/v2"
-	"ledo/app/cmd/docker"
 )
 
 var CmdDocker = cli.Command{

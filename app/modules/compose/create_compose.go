@@ -1,10 +1,10 @@
 package compose
 
 import (
+	"github.com/paramah/ledo/app/helper"
+	"github.com/paramah/ledo/app/modules/context"
+	"github.com/paramah/ledo/app/templates"
 	"html/template"
-	"ledo/app/helper"
-	"ledo/app/modules/context"
-	"ledo/app/templates"
 	"log"
 	"os"
 )

@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"github.com/paramah/ledo/app/cmd/mode"
 	"github.com/urfave/cli/v2"
-	"ledo/app/cmd/mode"
 )
 
 var CmdMode = cli.Command{

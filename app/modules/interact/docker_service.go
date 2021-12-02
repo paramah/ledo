@@ -2,7 +2,7 @@ package interact
 
 import (
 	"github.com/AlecAivazis/survey/v2"
-	"ledo/app/helper"
+	"github.com/paramah/ledo/app/helper"
 )
 
 var PredefinedDockerComposeModes = []string{

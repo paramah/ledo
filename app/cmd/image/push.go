@@ -1,9 +1,9 @@
 package image
 
 import (
+	"github.com/paramah/ledo/app/modules/context"
+	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/context"
-	"ledo/app/modules/docker"
 )
 
 var CmdDockerPush = cli.Command{

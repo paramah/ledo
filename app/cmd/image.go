@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"ledo/app/cmd/image"
+	"github.com/paramah/ledo/app/cmd/image"
 
 	"github.com/urfave/cli/v2"
 )

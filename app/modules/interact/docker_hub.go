@@ -2,7 +2,7 @@ package interact
 
 import (
 	"github.com/AlecAivazis/survey/v2"
-	"ledo/app/modules/docker_hub"
+	"github.com/paramah/ledo/app/modules/docker_hub"
 )
 
 func SelectDockerHubTag(dockerImage string) (string, error) {

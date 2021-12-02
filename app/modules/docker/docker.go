@@ -3,9 +3,9 @@ package docker
 import (
 	b64 "encoding/base64"
 	"fmt"
+	"github.com/paramah/ledo/app/modules/aws_ledo"
+	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/aws_ledo"
-	"ledo/app/modules/context"
 	"net/url"
 	"os"
 	"strings"

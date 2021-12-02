@@ -1,8 +1,8 @@
 package mode
 
 import (
+	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/context"
 )
 
 var CmdModeList = cli.Command{

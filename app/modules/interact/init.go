@@ -2,7 +2,7 @@ package interact
 
 import (
 	"github.com/AlecAivazis/survey/v2"
-	"ledo/app/modules/config"
+	"github.com/paramah/ledo/app/modules/config"
 )
 
 func InitLedoProject(dockerConfig config.DockerMap) (config.DockerMap, error) {

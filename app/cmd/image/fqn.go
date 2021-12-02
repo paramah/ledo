@@ -2,9 +2,9 @@ package image
 
 import (
 	"fmt"
+	"github.com/paramah/ledo/app/modules/context"
+	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/context"
-	"ledo/app/modules/docker"
 )
 
 var CmdDockerFqn = cli.Command{

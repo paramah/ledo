@@ -1,7 +1,7 @@
 package interact
 
 import (
-	"ledo/app/helper"
+	"github.com/paramah/ledo/app/helper"
 )
 
 func InitDocker() (helper.DockerProjectCfg, error) {
