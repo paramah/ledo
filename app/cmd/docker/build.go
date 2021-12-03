@@ -12,10 +12,18 @@ var CmdComposeBuild = cli.Command{
 	Usage:       "build docker image",
 	Description: `Build all docker images`,
 	Action:      RunComposeBuild,
+	Flags: []cli.Flag{
+		&cli.BoolFlag{
+			Name:     "no-cache",
+			Aliases:  []string{"n"},
+			Usage:    "build without cache",
+			Required: false,
+		},
+	},
 }
 
 func RunComposeBuild(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	compose.ExecComposerBuild(ctx)
+	compose.ExecComposerBuild(ctx, *cmd)
 	return nil
 }

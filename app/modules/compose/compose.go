@@ -95,9 +95,12 @@ func ExecComposerStop(ctx *context.LedoContext) {
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
-func ExecComposerBuild(ctx *context.LedoContext) {
+func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
 	args := ctx.ComposeArgs
 	args = append(args, "build", "--pull")
+	if command.Bool("no-cache") == true {
+		args = append(args, "--no-cache")
+	}
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
@@ -129,6 +132,12 @@ func ExecComposerLogs(ctx *context.LedoContext, command cli.Args) {
 func ExecComposerPs(ctx *context.LedoContext) {
 	args := ctx.ComposeArgs
 	args = append(args, "ps")
+	ctx.ExecCmd("docker-compose", args[0:])
+}
+
+func ExecComposerRm(ctx *context.LedoContext) {
+	args := ctx.ComposeArgs
+	args = append(args, "rm", "-f")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 

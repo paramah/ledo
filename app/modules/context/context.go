@@ -48,7 +48,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 	c.Config = cfg
 
 	args := []string{"--env-file", ".env"}
-	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Name, "/", "-", -1)))
+	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Namespace, "/", "-", -1)))
 
 	composes, _ := ledoMode.GetModeConfig()
 	for _, element := range composes {
