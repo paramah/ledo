@@ -5,9 +5,11 @@ import (
 	"github.com/urfave/cli/v2"
 	"ledo/app/modules/config"
 	"ledo/app/modules/mode"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
+	"syscall"
 )
 
 type LedoContext struct {
@@ -79,7 +81,27 @@ func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout
 	command.Stderr = os.Stderr
-	return command.Run()
+	
+	if err := command.Start(); err != nil {
+        log.Fatalf("cmd.Start: %v", err)
+		os.Exit(1)
+		return err
+    }
+
+    if err := command.Wait(); err != nil {
+        if exiterr, ok := err.(*exec.ExitError); ok {
+            if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+                log.Printf("Exit Status: %d", status.ExitStatus())
+				os.Exit(status.ExitStatus())
+				return err
+            }
+        } else {
+            log.Fatalf("cmd.Wait: %v", err)
+			os.Exit(1)
+			return err
+        }
+    }
+	return nil
 }
 
 func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
@@ -87,5 +109,25 @@ func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout
 	command.Stderr = nil
-	return command.Run()
+
+	if err := command.Start(); err != nil {
+        log.Fatalf("cmd.Start: %v", err)
+		os.Exit(1)
+		return err
+    }
+
+    if err := command.Wait(); err != nil {
+        if exiterr, ok := err.(*exec.ExitError); ok {
+            if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+                log.Printf("Exit Status: %d", status.ExitStatus())
+				os.Exit(status.ExitStatus())
+				return err
+            }
+        } else {
+            log.Fatalf("cmd.Wait: %v", err)
+			os.Exit(1)
+			return err
+        }
+    }
+	return nil
 }
