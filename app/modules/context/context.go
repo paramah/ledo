@@ -81,7 +81,7 @@ func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout
 	command.Stderr = os.Stderr
-	
+
 	if err := command.Start(); err != nil {
         log.Fatalf("cmd.Start: %v", err)
 		os.Exit(1)

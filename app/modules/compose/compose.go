@@ -163,6 +163,16 @@ func ExecComposerRun(ctx *context.LedoContext, command cli.Args) {
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
+func ExecComposerExec(ctx *context.LedoContext, command cli.Args) {
+	args := ctx.ComposeArgs
+	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService))
+	if ctx.Config.Docker.Username != "" {
+		args = append(args, "sudo", "-E", "-u", ctx.Config.Docker.Username)
+	}
+	args = append(args, command.Slice()...)
+	ctx.ExecCmd("docker-compose", args[0:])
+}
+
 func ExecComposerUpOnce(ctx *context.LedoContext) {
 	args := ctx.ComposeArgs
 	args = append(args, "up", "--force-recreate", "--renew-anon-volumes", "--abort-on-container-exit", "--exit-code-from", ctx.Config.Docker.MainService)
