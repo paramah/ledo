@@ -16,7 +16,10 @@ jobs:
       - image: cimg/go:1.17
     steps:
       - checkout
-      - run: curl -sL https://git.io/goreleaser | bash
       - run:
+          name: goreleaser 
+          command: curl -sL https://git.io/goreleaser | bash
+      - run:
+          name: Trigger docker `paramah/dind` build
           command: |
             curl -X POST "https://drone.cynarski.pl/api/repos/Docker/dind/builds" -H "Authorization: Bearer ${DRONE_TOKEN}"
