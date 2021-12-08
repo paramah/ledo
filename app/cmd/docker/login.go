@@ -19,6 +19,29 @@ var CmdDockerLogin = cli.Command{
 var CmdDockerEcrLogin = cli.Command{
 	Name:        "ecr",
 	Aliases:     []string{"e"},
+	Flags: []cli.Flag {
+      &cli.StringFlag{
+        Name:    "region",
+        Aliases: []string{"r"},
+        Usage:   "aws-region",
+		Required: true,
+        EnvVars: []string{"AWS_REGION"},
+      },
+	  &cli.StringFlag{
+        Name:    "key",
+        Aliases: []string{"k"},
+        Usage:   "AWS access key",
+		Required: true,
+        EnvVars: []string{"AWS_ACCESS_KEY_ID"},
+      },
+	  &cli.StringFlag{
+        Name:    "secret",
+        Aliases: []string{"s"},
+        Usage:   "AWS secret key",
+		Required: true,
+        EnvVars: []string{"AWS_SECRET_ACCESS_KEY"},
+      },
+    },
 	Usage:       "AWS Elastic Docker Registry",
 	Description: `Login to docker registry`,
 	Action:      RunDockerEcrLogin,
