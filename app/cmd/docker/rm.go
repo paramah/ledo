@@ -2,8 +2,8 @@ package docker
 
 import (
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/compose"
-	"ledo/app/modules/context"
+	"github.com/paramah/ledo/app/modules/compose"
+	"github.com/paramah/ledo/app/modules/context"
 )
 
 var CmdDockerRm = cli.Command{
