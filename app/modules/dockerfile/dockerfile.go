@@ -1,9 +1,9 @@
 package dockerfile
 
 import (
+	"github.com/paramah/ledo/app/helper"
+	"github.com/paramah/ledo/app/templates"
 	"html/template"
-	"ledo/app/helper"
-	"ledo/app/templates"
 	"log"
 	"os"
 )

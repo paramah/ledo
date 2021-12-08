@@ -2,8 +2,8 @@ package interact
 
 import (
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/paramah/ledo/app/modules/context"
 	"github.com/thoas/go-funk"
-	"ledo/app/modules/context"
 )
 
 func SelectMode(context *context.LedoContext, selectedMode string) (string, error) {

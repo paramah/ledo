@@ -2,9 +2,9 @@ package context
 
 import (
 	"fmt"
+	"github.com/paramah/ledo/app/modules/config"
+	"github.com/paramah/ledo/app/modules/mode"
 	"github.com/urfave/cli/v2"
-	"ledo/app/modules/config"
-	"ledo/app/modules/mode"
 	"log"
 	"os"
 	"os/exec"

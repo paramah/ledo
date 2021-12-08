@@ -2,14 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/paramah/ledo/app/helper"
+	"github.com/paramah/ledo/app/modules/compose"
+	"github.com/paramah/ledo/app/modules/context"
+	"github.com/paramah/ledo/app/modules/dockerfile"
+	"github.com/paramah/ledo/app/modules/interact"
+	"github.com/paramah/ledo/app/templates"
 	"github.com/urfave/cli/v2"
 	"html/template"
-	"ledo/app/helper"
-	"ledo/app/modules/compose"
-	"ledo/app/modules/context"
-	"ledo/app/modules/dockerfile"
-	"ledo/app/modules/interact"
-	"ledo/app/templates"
 	"log"
 	"os"
 )

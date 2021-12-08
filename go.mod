@@ -1,4 +1,4 @@
-module ledo
+module github.com/paramah/ledo
 
 go 1.17
 

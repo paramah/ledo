@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/paramah/ledo/app/cmd"
+	"github.com/paramah/ledo/app/modules/compose"
 	"github.com/sanbornm/go-selfupdate/selfupdate"
 	"github.com/urfave/cli/v2"
-	"ledo/app/cmd"
-	"ledo/app/modules/compose"
 	"log"
 	"os"
 )
