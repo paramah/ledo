@@ -20,6 +20,8 @@ var CmdDocker = cli.Command{
 		&docker.CmdComposeLogs,
 		&docker.CmdComposeRestart,
 		&docker.CmdComposeRun,
+		&docker.CmdComposeExec,
+		&docker.CmdDockerRm,
 		&docker.CmdComposeShell,
 		&docker.CmdComposeStart,
 		&docker.CmdComposeUpOnce,

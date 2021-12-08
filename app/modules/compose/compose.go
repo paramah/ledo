@@ -95,9 +95,12 @@ func ExecComposerStop(ctx *context.LedoContext) {
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
-func ExecComposerBuild(ctx *context.LedoContext) {
+func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
 	args := ctx.ComposeArgs
 	args = append(args, "build", "--pull")
+	if command.Bool("no-cache") == true {
+		args = append(args, "--no-cache")
+	}
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
@@ -132,6 +135,12 @@ func ExecComposerPs(ctx *context.LedoContext) {
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
+func ExecComposerRm(ctx *context.LedoContext) {
+	args := ctx.ComposeArgs
+	args = append(args, "rm", "-f")
+	ctx.ExecCmd("docker-compose", args[0:])
+}
+
 func ExecComposerShell(ctx *context.LedoContext) {
 	args := ctx.ComposeArgs
 	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService), ctx.Config.Docker.Shell)
@@ -147,6 +156,16 @@ func ExecComposerDebug(ctx *context.LedoContext) {
 func ExecComposerRun(ctx *context.LedoContext, command cli.Args) {
 	args := ctx.ComposeArgs
 	args = append(args, "run", strings.ToLower(ctx.Config.Docker.MainService))
+	if ctx.Config.Docker.Username != "" {
+		args = append(args, "sudo", "-E", "-u", ctx.Config.Docker.Username)
+	}
+	args = append(args, command.Slice()...)
+	ctx.ExecCmd("docker-compose", args[0:])
+}
+
+func ExecComposerExec(ctx *context.LedoContext, command cli.Args) {
+	args := ctx.ComposeArgs
+	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService))
 	if ctx.Config.Docker.Username != "" {
 		args = append(args, "sudo", "-E", "-u", ctx.Config.Docker.Username)
 	}
