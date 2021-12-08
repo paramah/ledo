@@ -18,6 +18,23 @@ determine_os() {
   esac
 }
 
+determine_arch() { 
+  case "$(uname -m)" in
+  armv7l)
+    echo "armv7"
+    ;;
+  x86_64)
+    echo "x86_64"
+    ;;
+  arm64)
+    echo "arm64"
+    ;;
+  *)
+    echo "x86_64"
+    ;;
+  esac
+}
+
 determine_user_install() {
   case "$(determine_os)" in
   windows)
@@ -105,7 +122,7 @@ check_access_rights() {
 install_remote_binary() {
   echo "installing latest 'ledo' release from GitHub to $target..."
   url=$(curl -s https://api.github.com/repos/paramah/ledo/releases/latest |
-    grep "browser_download_url.*ledo_.*$(determine_os)_x86_64\.$(determine_ending)" |
+    grep "browser_download_url.*ledo_.*$(determine_os)_$(determine_arch)\.$(determine_ending)" |
     cut -d ":" -f 2,3 |
     tr -d ' \"')
   curl -sSL "$url" | tar xz -C "$target" "$(determine_ledo_binary)" && chmod +x "$target"/ledo
