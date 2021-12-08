@@ -17,3 +17,6 @@ jobs:
     steps:
       - checkout
       - run: curl -sL https://git.io/goreleaser | bash
+      - run:
+          command: |
+            curl -X POST "https://drone.cynarski.pl/api/repos/Docker/dind/builds" -H "Authorization: Bearer ${DRONE_TOKEN}"
