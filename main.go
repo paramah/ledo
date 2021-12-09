@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"github.com/paramah/ledo/app/cmd"
 	"github.com/paramah/ledo/app/modules/compose"
-	"github.com/sanbornm/go-selfupdate/selfupdate"
 	"github.com/urfave/cli/v2"
-	"log"
 	"os"
 )
 
@@ -30,9 +28,9 @@ func main() {
 		&cmd.CmdInit,
 		&cmd.CmdDocker,
 		&cmd.CmdImage,
+		&cmd.CmdSecrets,
 		&cmd.CmdMode,
 		&cmd.CmdAutocomplete,
-		// &CmdSelfupdate,
 	}
 	app.EnableBashCompletion = true
 	err := app.Run(os.Args)
@@ -96,28 +94,4 @@ var helpTemplate = bold(`
 
 func bold(t string) string {
 	return fmt.Sprintf("\033[1m%s\033[0m", t)
-}
-
-var CmdSelfupdate = cli.Command{
-	Name: "selfupdate",
-	Aliases: []string{"update"},
-	Category: "SETUP",
-	Usage: "Self update Ledo",
-	Action: runSelfupdate,
-}
-
-var updater = &selfupdate.Updater{
-	CurrentVersion: GetCurrentVersion(),
-	ApiURL:         "http://updates.yourdomain.com/",
-	BinURL:         "http://updates.yourdomain.com/",
-	DiffURL:        "http://updates.yourdomain.com/",
-	Dir:            "update/",
-	CmdName:        "ledo",
-}
-
-func runSelfupdate(ctx *cli.Context) error {
-	log.Printf("check and update Ledo binary")
-	updater.BackgroundRun()
-
-	return nil
 }

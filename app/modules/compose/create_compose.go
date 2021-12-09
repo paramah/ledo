@@ -11,10 +11,10 @@ import (
 
 func CreateComposeFile(ctx *context.LedoContext, dockerProject helper.DockerProjectCfg, composeMode string) error {
 	if _, err := os.Stat("./docker"); os.IsNotExist(err) {
-	    err := os.Mkdir("./docker", 0755)
-    	if err != nil {
-        	log.Fatal(err)
-    	}
+		err := os.Mkdir("./docker", 0755)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	log.Printf("%v", dockerProject)
@@ -29,7 +29,7 @@ func CreateComposeFile(ctx *context.LedoContext, dockerProject helper.DockerProj
 	composeFilename := "./docker/docker-compose.yml"
 
 	if composeMode != "base" {
-		composeFilename = "./docker/docker-compose."+composeMode+".yml"
+		composeFilename = "./docker/docker-compose." + composeMode + ".yml"
 	}
 
 	f, err := os.Create(composeFilename)

@@ -19,5 +19,3 @@ var CmdImage = cli.Command{
 		&image.CmdDockerBuild,
 	},
 }
-
-

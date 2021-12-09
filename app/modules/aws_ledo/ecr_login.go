@@ -22,11 +22,11 @@ func EcrLogin() (*ecr.GetAuthorizationTokenOutput, error) {
 	var token *ecr.GetAuthorizationTokenOutput
 
 	config := &aws.Config{
-    	Region:      aws.String(getRegion()),
+		Region: aws.String(getRegion()),
 	}
 	sess, _ := session.NewSession(config)
 	_, err := sess.Config.Credentials.Get()
-		if err != nil {
+	if err != nil {
 		return token, err
 	}
 

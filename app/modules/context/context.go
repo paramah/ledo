@@ -83,24 +83,24 @@ func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
 	command.Stderr = os.Stderr
 
 	if err := command.Start(); err != nil {
-        log.Fatalf("cmd.Start: %v", err)
+		log.Fatalf("cmd.Start: %v", err)
 		os.Exit(1)
 		return err
-    }
+	}
 
-    if err := command.Wait(); err != nil {
-        if exiterr, ok := err.(*exec.ExitError); ok {
-            if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-                log.Printf("Exit Status: %d", status.ExitStatus())
+	if err := command.Wait(); err != nil {
+		if exiterr, ok := err.(*exec.ExitError); ok {
+			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+				log.Printf("Exit Status: %d", status.ExitStatus())
 				os.Exit(status.ExitStatus())
 				return err
-            }
-        } else {
-            log.Fatalf("cmd.Wait: %v", err)
+			}
+		} else {
+			log.Fatalf("cmd.Wait: %v", err)
 			os.Exit(1)
 			return err
-        }
-    }
+		}
+	}
 	return nil
 }
 
@@ -111,23 +111,23 @@ func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
 	command.Stderr = nil
 
 	if err := command.Start(); err != nil {
-        log.Fatalf("cmd.Start: %v", err)
+		log.Fatalf("cmd.Start: %v", err)
 		os.Exit(1)
 		return err
-    }
+	}
 
-    if err := command.Wait(); err != nil {
-        if exiterr, ok := err.(*exec.ExitError); ok {
-            if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-                log.Printf("Exit Status: %d", status.ExitStatus())
+	if err := command.Wait(); err != nil {
+		if exiterr, ok := err.(*exec.ExitError); ok {
+			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+				log.Printf("Exit Status: %d", status.ExitStatus())
 				os.Exit(status.ExitStatus())
 				return err
-            }
-        } else {
-            log.Fatalf("cmd.Wait: %v", err)
+			}
+		} else {
+			log.Fatalf("cmd.Wait: %v", err)
 			os.Exit(1)
 			return err
-        }
-    }
+		}
+	}
 	return nil
 }

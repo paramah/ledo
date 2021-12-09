@@ -67,14 +67,13 @@ func runInitLedo(cmd *cli.Context) error {
 		var dockerComposeServices []helper.DockerProjectAdditionalServiceCfg
 		var dockerComposeModeConfig []helper.DockerComposeModeCfg
 
-
 		for _, composeMode := range interact.PredefinedDockerComposeModes {
 			var configMode bool
 
 			if composeMode == "base" {
 				configMode = true
 			} else {
-				configMode = interact.InitAdvancedConfigurationAsk("Configure "+composeMode+" stack?")
+				configMode = interact.InitAdvancedConfigurationAsk("Configure " + composeMode + " stack?")
 			}
 
 			if configMode == true {
@@ -89,7 +88,7 @@ func runInitLedo(cmd *cli.Context) error {
 				}
 				composeFilename := "./docker/docker-compose.yml"
 				if composeMode != "base" {
-					composeFilename = "./docker/docker-compose."+composeMode+".yml"
+					composeFilename = "./docker/docker-compose." + composeMode + ".yml"
 				}
 				mdCfg := helper.DockerComposeModeCfg{
 					DockerComposeName:     composeFilename,

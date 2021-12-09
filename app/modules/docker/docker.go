@@ -12,14 +12,14 @@ import (
 )
 
 func trimLeftChars(s string, n int) string {
-    m := 0
-    for i := range s {
-        if m >= n {
-            return s[i:]
-        }
-        m++
-    }
-    return s[:0]
+	m := 0
+	for i := range s {
+		if m >= n {
+			return s[i:]
+		}
+		m++
+	}
+	return s[:0]
 }
 
 func DockerEcrLogin(ctx *context.LedoContext) error {
@@ -56,7 +56,7 @@ func ExecDockerPush(ctx *context.LedoContext, command cli.Args) {
 	}
 	image := ShowDockerImageFQN(ctx)
 	args = append(args, "push")
-	args = append(args, image + ":" + version)
+	args = append(args, image+":"+version)
 	ctx.ExecCmd("docker", args[0:])
 }
 
@@ -67,8 +67,8 @@ func ExecDockerRetag(ctx *context.LedoContext, command cli.Args) {
 	to := command.Get(1)
 	image := ShowDockerImageFQN(ctx)
 	args = append(args, "tag")
-	args = append(args, image + ":" + from)
-	args = append(args, image + ":" + to)
+	args = append(args, image+":"+from)
+	args = append(args, image+":"+to)
 	ctx.ExecCmd("docker", args[0:])
 }
 

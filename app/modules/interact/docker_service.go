@@ -37,7 +37,6 @@ func CreateDockerService() (helper.DockerProjectAdditionalServiceCfg, error) {
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},
-
 	}
 
 	err := survey.Ask(qs, &dockerServiceConfig)
@@ -48,4 +47,3 @@ func CreateDockerService() (helper.DockerProjectAdditionalServiceCfg, error) {
 
 	return dockerServiceConfig, err
 }
-

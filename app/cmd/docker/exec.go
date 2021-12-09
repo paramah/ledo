@@ -1,9 +1,9 @@
 package docker
 
 import (
-	"github.com/urfave/cli/v2"
 	"github.com/paramah/ledo/app/modules/compose"
 	"github.com/paramah/ledo/app/modules/context"
+	"github.com/urfave/cli/v2"
 )
 
 var CmdComposeExec = cli.Command{

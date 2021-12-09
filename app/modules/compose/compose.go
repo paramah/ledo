@@ -35,7 +35,7 @@ func CheckDockerComposeVersion() {
 	composeSemVer, _ := semver.NewVersion(composeVersion)
 
 	if !verConstraint.Check(composeSemVer) {
-		log.Fatal("Wrong docker-compose version, please update to "+DockerComposeVersion+" or higher.")
+		log.Fatal("Wrong docker-compose version, please update to " + DockerComposeVersion + " or higher.")
 	}
 }
 
