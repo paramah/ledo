@@ -29,6 +29,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 
 	configYml := ".ledo.yml"
 	modeYml := ".ledo-mode"
+	envFile := ".env"
 
 	// Compat with jzcli (StreamSage and Jazzy deployment tool)
 	if _, err := os.Stat(".jz-project.yml"); err == nil {
@@ -49,7 +50,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 	cfg, _ = config.NewLedoFile(configYml)
 	c.Config = cfg
 
-	args := []string{"--env-file", ".env"}
+	args := []string{"--env-file", envFile}
 	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Namespace, "/", "-", -1)))
 
 	composes, _ := ledoMode.GetModeConfig()
