@@ -9,6 +9,7 @@ require (
 	github.com/aws/aws-sdk-go v1.42.15
 	github.com/hashicorp/go-envparse v0.0.0-20200406174449-d9cfd743a15e
 	github.com/hashicorp/vault/api v1.3.0
+	github.com/mbndr/figlet4go v0.0.0-20190224160619-d6cef5b186ea
 	github.com/spf13/viper v1.8.1
 	github.com/thoas/go-funk v0.9.1
 	github.com/urfave/cli/v2 v2.3.0

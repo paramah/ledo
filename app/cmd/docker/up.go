@@ -11,12 +11,18 @@ var CmdDockerUp = cli.Command{
 	Aliases:     []string{"u"},
 	Usage:       "up containers",
 	Description: `Up all containers defined in docker-compose use in current mode`,
-	Action:      RunComposeUp,
+	Action:      RunComposeUp,	Flags: []cli.Flag{
+		&cli.BoolFlag{
+			Name:     "no-detach",
+			Aliases:  []string{"n"},
+			Usage:    "run in foreground",
+			Required: false,
+		},
+	},
 }
 
 func RunComposeUp(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	compose.ExecComposerUp(ctx)
-	compose.ExecComposerLogs(ctx, cmd.Args())
+	compose.ExecComposerUp(ctx, cmd.Bool("no-detach"))
 	return nil
 }

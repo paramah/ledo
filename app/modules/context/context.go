@@ -2,14 +2,15 @@ package context
 
 import (
 	"fmt"
-	"github.com/paramah/ledo/app/modules/config"
-	"github.com/paramah/ledo/app/modules/mode"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
 	"syscall"
+
+	"github.com/paramah/ledo/app/modules/config"
+	"github.com/paramah/ledo/app/modules/mode"
+	"github.com/urfave/cli/v2"
 )
 
 type LedoContext struct {
@@ -44,6 +45,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 
 	ledoMode := mode.InitMode(modeYml, configYml)
 	c.Mode = ledoMode
+
 
 	c.Output = ctx.String("output")
 

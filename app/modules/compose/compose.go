@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"github.com/Masterminds/semver"
+	"github.com/fatih/color"
 	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v3"
@@ -77,25 +78,38 @@ func MergeComposerFiles(filenames ...string) (string, error) {
 	return string(bs), nil
 }
 
-func ExecComposerUp(ctx *context.LedoContext) {
+func PrintCurrentMode(ctx *context.LedoContext) {
+	modePrint := color.New(color.FgHiRed)
+	modePrint.Printf("Actual mode: %v\n", ctx.Mode.CurrentMode)
+}
+
+func ExecComposerUp(ctx *context.LedoContext, noDetach bool) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
-	args = append(args, "up", "-d")
+
+	args = append(args, "up")
+	if noDetach == false {
+		args = append(args, "-d")
+	}
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerPull(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "pull")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerStop(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "stop")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "build", "--pull")
 	if command.Bool("no-cache") == true {
@@ -105,24 +119,28 @@ func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
 }
 
 func ExecComposerDown(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "down")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerStart(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "start")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerRestart(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "restart")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerLogs(ctx *context.LedoContext, command cli.Args) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "logs", "--follow", "--tail", "100")
 	args = append(args, command.Slice()...)
@@ -130,30 +148,35 @@ func ExecComposerLogs(ctx *context.LedoContext, command cli.Args) {
 }
 
 func ExecComposerPs(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "ps")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerRm(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "rm", "-f")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerShell(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService), ctx.Config.Docker.Shell)
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerDebug(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "run", "--entrypoint=", strings.ToLower(ctx.Config.Docker.MainService), ctx.Config.Docker.Shell)
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
 func ExecComposerRun(ctx *context.LedoContext, command cli.Args) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "run", strings.ToLower(ctx.Config.Docker.MainService))
 	if ctx.Config.Docker.Username != "" {
@@ -164,6 +187,7 @@ func ExecComposerRun(ctx *context.LedoContext, command cli.Args) {
 }
 
 func ExecComposerExec(ctx *context.LedoContext, command cli.Args) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService))
 	if ctx.Config.Docker.Username != "" {
@@ -174,6 +198,7 @@ func ExecComposerExec(ctx *context.LedoContext, command cli.Args) {
 }
 
 func ExecComposerUpOnce(ctx *context.LedoContext) {
+	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
 	args = append(args, "up", "--force-recreate", "--renew-anon-volumes", "--abort-on-container-exit", "--exit-code-from", ctx.Config.Docker.MainService)
 	ctx.ExecCmd("docker-compose", args[0:])
