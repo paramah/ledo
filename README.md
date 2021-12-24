@@ -51,7 +51,7 @@ modes:
   traefik: docker/docker-compose.yml docker/docker-compose.traefik.yml
 ```
 
-For comfortable operation modes are important, as you can see in the example above we have defined two modes (dev and traefik).
+For comfortable work with `ledo` modes are important. As you can see in the example above we have defined two modes (dev and traefik).
 
 ## Docker compose
 
