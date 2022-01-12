@@ -26,7 +26,7 @@ func runInitLedo(cmd *cli.Context) error {
 
 	config, err := context.LoadConfigFile()
 	if err != nil {
-		logger.Critical("Ledo config file not found!", err)
+		logger.Error("Ledo config file not found!", err)
 	}
 
 	data, err := interact.InitLedoProject(config.Docker)
@@ -55,6 +55,7 @@ func runInitLedo(cmd *cli.Context) error {
 		err = dockerfile.CreateDockerFile(dConf)
 		if err != nil {
 			logger.Critical("Unable to create a Dockerfile", err)
+			return err
 		}
 
 		projectComposeConfig := helper.DockerProjectCfg{}
