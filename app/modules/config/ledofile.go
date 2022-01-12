@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/paramah/ledo/app/logger"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
@@ -24,7 +25,7 @@ type DockerMap struct {
 func NewLedoFile(s string) (*LedoFile, error) {
 	yamlFile, err := ioutil.ReadFile(s)
 	if err != nil {
-		return nil, err
+		logger.Critical("Read yaml file error", err)
 	}
 	t := &LedoFile{}
 	err = yaml.Unmarshal(yamlFile, t)
@@ -40,9 +41,8 @@ func NewLedoFile(s string) (*LedoFile, error) {
 		t.Docker.Shell = mainShell
 	}
 
-
 	if err != nil {
-		return nil, err
+		logger.Critical("Parse yaml file error", err)
 	}
 	return t, nil
 }

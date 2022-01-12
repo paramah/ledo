@@ -2,6 +2,7 @@ package dockerfile
 
 import (
 	"github.com/paramah/ledo/app/helper"
+	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/templates"
 	"html/template"
 	"log"
@@ -25,7 +26,7 @@ func CreateDockerFile(cfg helper.DockerProjectCfg) error {
 
 	f, err := os.Create("./Dockerfile")
 	if err != nil {
-		log.Println("create file: ", err)
+		logger.Critical("Dockerfile create errror", err)
 	}
 	err = tpl.Execute(f, cfg)
 

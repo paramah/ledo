@@ -3,6 +3,7 @@ package hashicorp_vault
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/paramah/ledo/app/logger"
 	"log"
 
 	"github.com/hashicorp/vault/api"
@@ -25,6 +26,7 @@ type Vault struct {
 func New(config VaultConfig) (Vault, error) {
 	client, err := api.NewClient(&api.Config{Address: config.Address})
 	if err != nil {
+		logger.Critical("Vault error", err)
 		return Vault{}, err
 	}
 	client.SetToken(config.Token)
@@ -43,6 +45,7 @@ func (v Vault) Write(key string, value map[string]interface{}) error {
 	if v.config.Debug {
 		dat, err := json.Marshal(scr)
 		if err != nil {
+			logger.Error("Vault error", err)
 			return fmt.Errorf("debug: %w", err)
 		}
 		log.Println(string(dat))

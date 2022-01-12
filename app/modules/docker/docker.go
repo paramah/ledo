@@ -3,11 +3,11 @@ package docker
 import (
 	b64 "encoding/base64"
 	"fmt"
+	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/aws_ledo"
 	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -25,16 +25,14 @@ func trimLeftChars(s string, n int) string {
 func DockerEcrLogin(ctx *context.LedoContext) error {
 	ecr, err := aws_ledo.EcrLogin()
 	if err != nil {
-		fmt.Println("Ecr login error: %s", err)
-		os.Exit(1)
+		logger.Critical("Ecr login error", err)
 	}
 	password := *ecr.AuthorizationData[0].AuthorizationToken
 	ecrUrl := *ecr.AuthorizationData[0].ProxyEndpoint
 	sDec, _ := b64.StdEncoding.DecodeString(password)
 	registryAddr, err := url.Parse(ecrUrl)
 	if err != nil {
-		fmt.Printf("Ecr endpoint addr parse error: %s", err)
-		os.Exit(1)
+		logger.Critical("ECR endpoint address parse error", err)
 	}
 	ctx.ExecCmdSilent("docker", []string{"login", "-u", "AWS", "-p", string(trimLeftChars(string(sDec), 4)), registryAddr.Host})
 

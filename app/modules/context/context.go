@@ -2,15 +2,13 @@ package context
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"os/exec"
-	"strings"
-	"syscall"
-
+	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/config"
 	"github.com/paramah/ledo/app/modules/mode"
 	"github.com/urfave/cli/v2"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 type LedoContext struct {
@@ -18,7 +16,6 @@ type LedoContext struct {
 	Config      *config.LedoFile
 	ComposeArgs []string
 	Mode        mode.Mode
-	Output      string
 }
 
 func InitCommand(ctx *cli.Context) *LedoContext {
@@ -39,22 +36,21 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 	}
 
 	if _, err := os.Stat(configYml); err != nil {
-		fmt.Printf("Config file not found. Please run ledo init\n")
-		os.Exit(1)
+		logger.Critical("Config file not found. Please run ledo init", err)
 	}
 
 	ledoMode := mode.InitMode(modeYml, configYml)
 	c.Mode = ledoMode
 
-
-	c.Output = ctx.String("output")
+	//c.Output = ctx.String("output")
+	//c.Verbosity = 1
 
 	cfg, _ = config.NewLedoFile(configYml)
 	c.Config = cfg
 
 	args := []string{"--env-file", envFile}
 	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Namespace, "/", "-", -1)))
-
+	
 	composes, _ := ledoMode.GetModeConfig()
 	for _, element := range composes {
 		args = append(args, "-f")
@@ -79,30 +75,18 @@ func LoadConfigFile() (*config.LedoFile, error) {
 }
 
 func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
-	fmt.Printf("Execute: %v %v\n", cmd, strings.Join(cmdArgs, " "))
+	logger.Execute(fmt.Sprintf("%v %v\n", cmd, strings.Join(cmdArgs, " ")))
 	command := exec.Command(cmd, cmdArgs...)
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout
 	command.Stderr = os.Stderr
 
 	if err := command.Start(); err != nil {
-		log.Fatalf("cmd.Start: %v", err)
-		os.Exit(1)
-		return err
+		logger.Critical("Execute critical error", err)
 	}
 
 	if err := command.Wait(); err != nil {
-		if exiterr, ok := err.(*exec.ExitError); ok {
-			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-				log.Printf("Exit Status: %d", status.ExitStatus())
-				os.Exit(status.ExitStatus())
-				return err
-			}
-		} else {
-			log.Fatalf("cmd.Wait: %v", err)
-			os.Exit(1)
-			return err
-		}
+		logger.Critical("Execute critical error", err)
 	}
 	return nil
 }
@@ -114,23 +98,11 @@ func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
 	command.Stderr = nil
 
 	if err := command.Start(); err != nil {
-		log.Fatalf("cmd.Start: %v", err)
-		os.Exit(1)
-		return err
+		logger.Critical("Execute critical error", err)
 	}
 
 	if err := command.Wait(); err != nil {
-		if exiterr, ok := err.(*exec.ExitError); ok {
-			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-				log.Printf("Exit Status: %d", status.ExitStatus())
-				os.Exit(status.ExitStatus())
-				return err
-			}
-		} else {
-			log.Fatalf("cmd.Wait: %v", err)
-			os.Exit(1)
-			return err
-		}
+		logger.Critical("Execute critical error", err)
 	}
 	return nil
 }

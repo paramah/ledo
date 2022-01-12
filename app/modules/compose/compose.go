@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"errors"
 	"github.com/Masterminds/semver"
-	"github.com/fatih/color"
+	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/context"
+	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
-	"log"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -25,7 +25,7 @@ func CheckDockerComposeVersion() {
 	err := cmd.Run()
 
 	if err != nil {
-		log.Fatal("No docker-compose installed. Please install docker-compose ie. via `pip3 install docker-compose`")
+		logger.Critical("No docker-compose installed. Please install docker-compose ie. via `pip3 install docker-compose`", err)
 	}
 
 	r := regexp.MustCompile("(.*){1}(version\\ ){1}(([0-9]+)\\.([0-9]+)\\.([0-9]+))")
@@ -36,7 +36,7 @@ func CheckDockerComposeVersion() {
 	composeSemVer, _ := semver.NewVersion(composeVersion)
 
 	if !verConstraint.Check(composeSemVer) {
-		log.Fatal("Wrong docker-compose version, please update to " + DockerComposeVersion + " or higher.")
+		logger.Critical("Wrong docker-compose version, please update to " + DockerComposeVersion + " or higher.", nil)
 	}
 }
 
@@ -52,11 +52,11 @@ func MergeComposerFiles(filenames ...string) (string, error) {
 		var override map[string]interface{}
 		bs, err := ioutil.ReadFile(filename)
 		if err != nil {
-			log.Print(err)
+			logger.Error("Merge compose error", err)
 			continue
 		}
 		if err := yaml.Unmarshal(bs, &override); err != nil {
-			log.Print(err)
+			logger.Error("Merge compose error", err)
 			continue
 		}
 
@@ -71,7 +71,7 @@ func MergeComposerFiles(filenames ...string) (string, error) {
 
 	bs, err := yaml.Marshal(resultValues)
 	if err != nil {
-		log.Fatal(err)
+		logger.Critical("Compose error", err)
 		return "", err
 	}
 
@@ -79,8 +79,11 @@ func MergeComposerFiles(filenames ...string) (string, error) {
 }
 
 func PrintCurrentMode(ctx *context.LedoContext) {
-	modePrint := color.New(color.FgHiRed)
-	modePrint.Printf("Actual mode: %v\n", ctx.Mode.CurrentMode)
+	pterm.Success.Prefix = pterm.Prefix{
+		Text:  "MODE",
+		Style: pterm.NewStyle(pterm.BgGreen, pterm.FgBlack),
+	}
+	pterm.Success.Printf("%v\n", ctx.Mode.CurrentMode)
 }
 
 func ExecComposerUp(ctx *context.LedoContext, noDetach bool) {
