@@ -1,7 +1,6 @@
 package templates
 
-var DockerEntrypointTemplate_bash = `
-#!/bin/bash
+var DockerEntrypointTemplate_bash = `#!/bin/bash
 set -eo pipefail
 shopt -s nullglob
 
@@ -30,8 +29,7 @@ h1 "End of init"
 exec "$@"
 `
 
-var TestEntrypointTemplate_bash = `
-#!/bin/bash
+var TestEntrypointTemplate_bash = `#!/bin/bash
 set -eo pipefail
 shopt -s nullglob
 
