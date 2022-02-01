@@ -29,7 +29,7 @@ curl -sL https://raw.githubusercontent.com/paramah/ledo/master/install.sh | sudo
 ## Using go install
 
 ```
-go install github.com/paramah/ledo@v1.0.0
+go install github.com/paramah/ledo@v1.2.0
 ```
 
 # Usage
