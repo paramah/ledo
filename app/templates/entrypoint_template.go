@@ -4,6 +4,13 @@ var DockerEntrypointTemplate_bash = `#!/bin/bash
 set -eo pipefail
 shopt -s nullglob
 
+#
+# H E L P E R    F U N C T I O N S 
+#
+##################################
+declare -i term_width=80
+
+
 h1() {
     declare border padding text
     border='\e[1;34m'"$(printf '=%.0s' $(seq 1 "$term_width"))"'\e[0m'
@@ -17,6 +24,11 @@ h1() {
 h2() {
     printf '\e[1;33m==>\e[37;1m %s\e[0m\n' "$*"
 }
+
+#
+# M A I N    F U N C T I O N S
+#
+#################################
 
 h1 "Project init"
 
@@ -33,6 +45,12 @@ var TestEntrypointTemplate_bash = `#!/bin/bash
 set -eo pipefail
 shopt -s nullglob
 
+#
+# H E L P E R    F U N C T I O N S 
+#
+##################################
+declare -i term_width=80
+
 h1() {
     declare border padding text
     border='\e[1;34m'"$(printf '=%.0s' $(seq 1 "$term_width"))"'\e[0m'
@@ -46,6 +64,11 @@ h1() {
 h2() {
     printf '\e[1;33m==>\e[37;1m %s\e[0m\n' "$*"
 }
+
+#
+# M A I N    F U N C T I O N S
+#
+#################################
 
 h1 "Project test init"
 
