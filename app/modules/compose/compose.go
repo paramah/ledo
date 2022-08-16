@@ -36,7 +36,7 @@ func CheckDockerComposeVersion() {
 	composeSemVer, _ := semver.NewVersion(composeVersion)
 
 	if !verConstraint.Check(composeSemVer) {
-		logger.Critical("Wrong docker-compose version, please update to " + DockerComposeVersion + " or higher.", nil)
+		logger.Critical("Wrong docker-compose version, please update to "+DockerComposeVersion+" or higher.", nil)
 	}
 }
 
@@ -164,10 +164,15 @@ func ExecComposerRm(ctx *context.LedoContext) {
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
-func ExecComposerShell(ctx *context.LedoContext) {
+func ExecComposerShell(ctx *context.LedoContext, command cli.Context) {
 	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
-	args = append(args, "exec", strings.ToLower(ctx.Config.Docker.MainService), ctx.Config.Docker.Shell)
+	args = append(args, "exec")
+	user := command.String("user")
+	if user != "" {
+		args = append(args, "--user", user)
+	}
+	args = append(args, strings.ToLower(ctx.Config.Docker.MainService), ctx.Config.Docker.Shell)
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
