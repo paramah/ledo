@@ -74,6 +74,11 @@ func LoadConfigFile() (*config.LedoFile, error) {
 	return cfg, nil
 }
 
+func (lx *LedoContext) ExecCmdOutput(cmd string, cmdArgs []string) ([]byte, error) {
+	command, _ := exec.Command(cmd, cmdArgs...).Output()
+	return command, nil
+}
+
 func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
 	logger.Execute(fmt.Sprintf("%v %v\n", cmd, strings.Join(cmdArgs, " ")))
 	command := exec.Command(cmd, cmdArgs...)
@@ -94,7 +99,7 @@ func (lx *LedoContext) ExecCmd(cmd string, cmdArgs []string) error {
 func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
 	command := exec.Command(cmd, cmdArgs...)
 	command.Stdin = os.Stdin
-	command.Stdout = os.Stdout
+	command.Stdout = nil
 	command.Stderr = nil
 
 	if err := command.Start(); err != nil {

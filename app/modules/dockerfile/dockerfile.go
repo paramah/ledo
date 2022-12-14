@@ -28,7 +28,7 @@ func CreateDockerFile(cfg helper.DockerProjectCfg) error {
 
 	f, err := os.Create("./Dockerfile")
 	if err != nil {
-		logger.Critical("Dockerfile create errror", err)
+		logger.Critical("Dockerfile create error", err)
 	}
 	err = tpl.Execute(f, cfg)
 

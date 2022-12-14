@@ -6,6 +6,7 @@ import (
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/aws_ledo"
 	"github.com/paramah/ledo/app/modules/context"
+	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
 	"net/url"
 	"strings"
@@ -33,8 +34,12 @@ func DockerEcrLogin(ctx *context.LedoContext) error {
 	registryAddr, err := url.Parse(ecrUrl)
 	if err != nil {
 		logger.Critical("ECR endpoint address parse error", err)
+		return err
 	}
-	ctx.ExecCmdSilent("docker", []string{"login", "-u", "AWS", "-p", string(trimLeftChars(string(sDec), 4)), registryAddr.Host})
+	err = ctx.ExecCmdSilent("docker", []string{"login", "-u", "AWS", "-p", string(trimLeftChars(string(sDec), 4)), registryAddr.Host})
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -45,6 +50,7 @@ func ShowDockerImageFQN(ctx *context.LedoContext) string {
 }
 
 func ExecDockerPush(ctx *context.LedoContext, command cli.Args) {
+
 	var version string
 	var args []string
 	if command.First() == "" {
@@ -55,7 +61,10 @@ func ExecDockerPush(ctx *context.LedoContext, command cli.Args) {
 	image := ShowDockerImageFQN(ctx)
 	args = append(args, "push")
 	args = append(args, image+":"+version)
-	ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("docker", args[0:])
+	if err != nil {
+		return
+	}
 }
 
 func ExecDockerRetag(ctx *context.LedoContext, command cli.Args) {
@@ -67,7 +76,10 @@ func ExecDockerRetag(ctx *context.LedoContext, command cli.Args) {
 	args = append(args, "tag")
 	args = append(args, image+":"+from)
 	args = append(args, image+":"+to)
-	ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("docker", args[0:])
+	if err != nil {
+		return
+	}
 }
 
 func ExecDockerBuild(ctx *context.LedoContext, command cli.Args, cmdCtx cli.Context) {
@@ -89,5 +101,228 @@ func ExecDockerBuild(ctx *context.LedoContext, command cli.Args, cmdCtx cli.Cont
 		args = append(args, "--target", cmdCtx.String("stage"))
 	}
 	args = append(args, ".")
-	ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("docker", args[0:])
+	if err != nil {
+		return
+	}
+}
+
+func ExecDockerPruneContainers(ctx *context.LedoContext) error {
+	var formatArgs []string
+	formatArgs = append(formatArgs, "--format")
+	formatArgs = append(formatArgs, "{{.ID}}")
+
+	var containerArgs []string
+	containerArgs = append(containerArgs, "ps")
+	containerArgs = append(containerArgs, formatArgs...)
+
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting containers to prune...")
+	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	spinnerLiveText.Success("Getting containers to prune... Done!")
+
+	lines := strings.Split(string(output[:]), "\n")
+	progressbar := pterm.DefaultProgressbar.WithTotal(len(lines) - 1).WithShowElapsedTime(false)
+	progressbar.Title = "Prune containers"
+
+	for _, container := range lines {
+		if container == "" {
+			continue
+		}
+		var rmargs []string
+		rmargs = append(rmargs, "rm")
+		rmargs = append(rmargs, container)
+		rmargs = append(rmargs, "--force")
+		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		if err != nil {
+			return err
+		}
+
+		progressbar.Increment()
+	}
+
+	_, err := progressbar.Stop()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ExecDockerPruneImages(ctx *context.LedoContext) error {
+	var formatArgs []string
+	formatArgs = append(formatArgs, "--format")
+	formatArgs = append(formatArgs, "{{.ID}}")
+
+	var containerArgs []string
+	containerArgs = append(containerArgs, "images")
+	containerArgs = append(containerArgs, "-a")
+	containerArgs = append(containerArgs, formatArgs...)
+
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting images to prune...")
+	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	spinnerLiveText.Success("Getting images to prune... Done!")
+
+	lines := strings.Split(string(output[:]), "\n")
+	progressbar := pterm.DefaultProgressbar.WithTotal(len(lines) - 1).WithShowElapsedTime(false)
+	progressbar.Title = "Prune images"
+
+	for _, image := range lines {
+		if image == "" {
+			continue
+		}
+		var rmargs []string
+		rmargs = append(rmargs, "rmi")
+		rmargs = append(rmargs, image)
+		rmargs = append(rmargs, "--force")
+		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		if err != nil {
+			return err
+		}
+
+		progressbar.Increment()
+	}
+
+	_, err := progressbar.Stop()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ExecDockerPruneVolumes(ctx *context.LedoContext) error {
+	var formatArgs []string
+	formatArgs = append(formatArgs, "--format")
+	formatArgs = append(formatArgs, "{{.ID}}")
+
+	var containerArgs []string
+	containerArgs = append(containerArgs, "volume")
+	containerArgs = append(containerArgs, "ls")
+	containerArgs = append(containerArgs, formatArgs...)
+
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting volumes to prune...")
+	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	spinnerLiveText.Success("Getting volumes to prune... Done!")
+
+	lines := strings.Split(string(output[:]), "\n")
+	progressbar := pterm.DefaultProgressbar.WithTotal(len(lines) - 1).WithShowElapsedTime(false)
+	progressbar.Title = "Prune volumes"
+
+	for _, image := range lines {
+		if image == "" {
+			continue
+		}
+		var rmargs []string
+		rmargs = append(rmargs, "volume")
+		rmargs = append(rmargs, "rm")
+		rmargs = append(rmargs, image)
+		rmargs = append(rmargs, "--force")
+		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		if err != nil {
+			return err
+		}
+
+		progressbar.Increment()
+	}
+
+	_, err := progressbar.Stop()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ExecDockerPruneNetworks(ctx *context.LedoContext) error {
+	var formatArgs []string
+	formatArgs = append(formatArgs, "--format")
+	formatArgs = append(formatArgs, "{{.ID}}")
+
+	var containerArgs []string
+	containerArgs = append(containerArgs, "network")
+	containerArgs = append(containerArgs, "ls")
+	containerArgs = append(containerArgs, formatArgs...)
+
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting networks to prune...")
+	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	spinnerLiveText.Success("Getting networks to prune... Done!")
+
+	lines := strings.Split(string(output[:]), "\n")
+	progressbar := pterm.DefaultProgressbar.WithTotal(len(lines) - 1).WithShowElapsedTime(false)
+	progressbar.Title = "Prune networks"
+
+	for _, network := range lines {
+		if network == "" {
+			continue
+		}
+		var rmargs []string
+		rmargs = append(rmargs, "network")
+		rmargs = append(rmargs, "rm")
+		rmargs = append(rmargs, network)
+		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		if err != nil {
+			return err
+		}
+
+		progressbar.Increment()
+	}
+
+	_, err := progressbar.Stop()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ExecDockerSystemPrune(ctx *context.LedoContext) error {
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Docker system prune...")
+
+	var containerArgs []string
+	containerArgs = append(containerArgs, "system")
+	containerArgs = append(containerArgs, "prune")
+	containerArgs = append(containerArgs, "--all")
+	containerArgs = append(containerArgs, "--volumes")
+	containerArgs = append(containerArgs, "--force")
+
+	err := ctx.ExecCmd("docker", containerArgs[0:])
+	if err != nil {
+		spinnerLiveText.Fail("Docker system prune... Error!")
+		return err
+	}
+
+	spinnerLiveText.Success("Docker system prune... Done!")
+
+	return nil
+}
+
+func ExecDockerPrune(ctx *context.LedoContext) error {
+	var err error
+
+	err = ExecDockerPruneContainers(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = ExecDockerPruneImages(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = ExecDockerPruneVolumes(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = ExecDockerPruneNetworks(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = ExecDockerSystemPrune(ctx)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

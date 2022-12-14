@@ -28,5 +28,6 @@ var CmdDocker = cli.Command{
 		&docker.CmdComposePull,
 		&docker.CmdComposeStop,
 		&docker.CmdDockerLogin,
+		&docker.CmdPrune,
 	},
 }

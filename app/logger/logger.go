@@ -22,6 +22,15 @@ func Execute(msg string) {
 	pterm.Success.Printf("%v\n", msg)
 }
 
+func Info(msg string) {
+	pterm.Success.Prefix = pterm.Prefix{
+		Text:  levelInfoName,
+		Style: pterm.NewStyle(pterm.BgGreen, pterm.FgBlack),
+	}
+	pterm.Success.Printf("%v\n", msg)
+}
+
+
 func Debug(msg string) {
 	pterm.Debug.Prefix = pterm.Prefix{
 		Text:  levelDebugName,
@@ -49,3 +58,11 @@ func Critical(msg string, err error) {
 	os.Exit(1)
 }
 
+func Exit(msg string) {
+	pterm.Error.Prefix = pterm.Prefix{
+		Text:  levelCriticalName,
+		Style: pterm.NewStyle(pterm.BgRed, pterm.FgLightWhite),
+	}
+	pterm.Error.Printf("%v\n", msg)
+	os.Exit(1)
+}

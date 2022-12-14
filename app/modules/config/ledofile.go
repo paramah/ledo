@@ -8,9 +8,10 @@ import (
 )
 
 type LedoFile struct {
-	Docker  DockerMap         `yaml:"docker,omitempty`
-	Modes   map[string]string `yaml:"modes,omitempty"`
-	Project string            `yaml:"project,omitempty"`
+	Docker  DockerMap         `yaml:"docker"`
+	Modes   map[string]string `yaml:"modes"`
+	Project string            `yaml:"project"`
+	Deployment []Deployment   `yaml:"deployment,omitempty"`
 }
 
 type DockerMap struct {
@@ -20,6 +21,13 @@ type DockerMap struct {
 	MainService string `yaml:"main_service,omitempty" env:"MAIN_SERVICE"`
 	Shell       string `yaml:"shell,omitempty" env:"MAIN_SHELL"`
 	Username    string `yaml:"username,omitempty"`
+}
+
+type Deployment struct {
+	Host         string `yaml:"host"`
+	IsSecure     bool   `yaml:"is_secure"`
+	TlsDirectory string `yaml:"tls_directory"`
+	Mode         string `yaml:"mode"`
 }
 
 func NewLedoFile(s string) (*LedoFile, error) {

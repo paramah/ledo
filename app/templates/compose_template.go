@@ -38,8 +38,6 @@ services:
         ENVIRONMENT: development
     volumes:
       - '../app:/var/www'
-    extra_hosts:
-      - host.docker.internal:host-gateway
     ports:
       - '8090:80'
 `

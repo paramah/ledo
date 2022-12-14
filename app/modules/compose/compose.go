@@ -3,6 +3,7 @@ package compose
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"github.com/Masterminds/semver"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/context"
@@ -28,9 +29,11 @@ func CheckDockerComposeVersion() {
 		logger.Critical("No docker-compose installed. Please install docker-compose ie. via `pip3 install docker-compose`", err)
 	}
 
-	r := regexp.MustCompile("(.*){1}(version\\ ){1}(([0-9]+)\\.([0-9]+)\\.([0-9]+))")
+	r := regexp.MustCompile("(.*){1}(version\\ )(v{0,1}){1}(([0-9]+)\\.([0-9]+)\\.([0-9]+))")
 	result := r.FindStringSubmatch(output.String())
-	composeVersion := result[3]
+	composeVersion := result[4]
+
+	fmt.Printf("Output: %s", result)
 
 	verConstraint, _ := semver.NewConstraint(DockerComposeVersion)
 	composeSemVer, _ := semver.NewVersion(composeVersion)
