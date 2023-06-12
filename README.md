@@ -14,6 +14,8 @@
 # About
 Ledo (LeadDocker) is a simple tool to facilitate the daily work with docker-compose in a project (it doesn't work in swarm for now). It allows you to create run modes and fully automate them.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/paramah/ledo)
+
 # Install
 
 ## Using binnary
