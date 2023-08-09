@@ -50,7 +50,7 @@ func MergeComposerFiles(filenames ...string) (string, error) {
 	for _, filename := range filenames {
 
 		var override map[string]interface{}
-		bs, err := ioutil.ReadFile(filename)
+		bs, err := ioutil.ReadFile(context.ResolveRootPath(filename))
 		if err != nil {
 			logger.Error("Merge compose error", err)
 			continue

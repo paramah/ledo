@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/config"
+	"github.com/paramah/ledo/app/modules/git"
 	"github.com/paramah/ledo/app/modules/mode"
 	"github.com/urfave/cli/v2"
 	"os"
@@ -19,20 +20,20 @@ type LedoContext struct {
 }
 
 func InitCommand(ctx *cli.Context) *LedoContext {
-
 	var (
 		c   LedoContext
 		cfg *config.LedoFile
 	)
 
-	configYml := ".ledo.yml"
+	configYml := ResolveRootPath(".ledo.yml")
 	modeYml := ".ledo-mode"
-	envFile := ".env"
+	envFile := ResolveRootPath(".env")
+	jzProjectYml := ResolveRootPath(".jz-project.yml")
 
 	// Compat with jzcli (StreamSage and Jazzy deployment tool)
-	if _, err := os.Stat(".jz-project.yml"); err == nil {
-		configYml = ".jz-project.yml"
-		modeYml = ".jz-mode"
+	if _, err := os.Stat(jzProjectYml); err == nil {
+		configYml = jzProjectYml
+		modeYml = ResolveRootPath(".jz-mode")
 	}
 
 	if _, err := os.Stat(configYml); err != nil {
@@ -42,19 +43,19 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 	ledoMode := mode.InitMode(modeYml, configYml)
 	c.Mode = ledoMode
 
-	//c.Output = ctx.String("output")
-	//c.Verbosity = 1
+	// c.Output = ctx.String("output")
+	// c.Verbosity = 1
 
 	cfg, _ = config.NewLedoFile(configYml)
 	c.Config = cfg
 
 	args := []string{"--env-file", envFile}
 	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Namespace, "/", "-", -1)))
-	
+
 	composes, _ := ledoMode.GetModeConfig()
 	for _, element := range composes {
 		args = append(args, "-f")
-		args = append(args, element)
+		args = append(args, ResolveRootPath(element))
 	}
 
 	c.ComposeArgs = args
@@ -63,7 +64,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 }
 
 func LoadConfigFile() (*config.LedoFile, error) {
-	configYml := ".ledo.yml"
+	configYml := ResolveRootPath(".ledo.yml")
 
 	if _, err := os.Stat(configYml); err != nil {
 		nilCfg := &config.LedoFile{}
@@ -110,4 +111,12 @@ func (lx *LedoContext) ExecCmdSilent(cmd string, cmdArgs []string) error {
 		logger.Critical("Execute critical error", err)
 	}
 	return nil
+}
+
+func ResolveRootPath(configFile string) string {
+	gitRoot, err := git.GetRepositoryRootDir()
+	if err != nil {
+		return configFile
+	}
+	return fmt.Sprintf("%s/%s", gitRoot, configFile)
 }
