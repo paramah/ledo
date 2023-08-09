@@ -2,15 +2,14 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/paramah/ledo/app/cmd"
 	"github.com/paramah/ledo/app/modules/compose"
 	"github.com/urfave/cli/v2"
-	"os"
 )
 
-var (
-	version = "dev"
-)
+var version = "dev"
 
 func GetCurrentVersion() string {
 	return version
@@ -86,11 +85,15 @@ var helpTemplate = bold(`
    Written & maintained by Aleksander "paramah" Cynarski
 
    More info about ledo on https://leaddocker.tech
-   `+bold(`
+   ` + bold(`
    Thanks for:
     StreamSage Team        https://streamsage.io
     Jazzy Innovations Team https://jazzy.pro
-`)+"\n"
+
+	Contributors:
+		-  muchzill4 (Bartek Mucha)
+		-  vertisan (Paweł Farys) 
+`) + "\n"
 
 func bold(t string) string {
 	return fmt.Sprintf("\033[1m%s\033[0m", t)
