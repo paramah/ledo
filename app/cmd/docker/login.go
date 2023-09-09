@@ -9,7 +9,7 @@ import (
 var CmdDockerLogin = cli.Command{
 	Name:        "login",
 	Aliases:     []string{"l"},
-	Usage:       "Docker Registry login",
+	Usage:       "Container Registry login",
 	Description: `Login to docker registry`,
 	Subcommands: []*cli.Command{
 		&CmdDockerEcrLogin,
@@ -42,7 +42,7 @@ var CmdDockerEcrLogin = cli.Command{
 			EnvVars:  []string{"AWS_SECRET_ACCESS_KEY"},
 		},
 	},
-	Usage:       "AWS Elastic Docker Registry",
+	Usage:       "AWS Elastic Container Registry",
 	Description: `Login to docker registry`,
 	Action:      RunDockerEcrLogin,
 }

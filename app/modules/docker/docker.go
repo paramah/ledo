@@ -45,7 +45,7 @@ func DockerEcrLogin(ctx *context.LedoContext) error {
 }
 
 func ShowDockerImageFQN(ctx *context.LedoContext) string {
-	fqn := fmt.Sprintf("%s/%s/%s", ctx.Config.Docker.Registry, ctx.Config.Docker.Namespace, ctx.Config.Docker.Name)
+	fqn := fmt.Sprintf("%s/%s/%s", ctx.Config.Container.Registry, ctx.Config.Container.Namespace, ctx.Config.Container.Name)
 	return strings.ToLower(fqn)
 }
 
@@ -276,7 +276,7 @@ func ExecDockerPruneNetworks(ctx *context.LedoContext) error {
 }
 
 func ExecDockerSystemPrune(ctx *context.LedoContext) error {
-	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Docker system prune...")
+	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Container system prune...")
 
 	var containerArgs []string
 	containerArgs = append(containerArgs, "system")
@@ -287,11 +287,11 @@ func ExecDockerSystemPrune(ctx *context.LedoContext) error {
 
 	err := ctx.ExecCmd("docker", containerArgs[0:])
 	if err != nil {
-		spinnerLiveText.Fail("Docker system prune... Error!")
+		spinnerLiveText.Fail("Container system prune... Error!")
 		return err
 	}
 
-	spinnerLiveText.Success("Docker system prune... Done!")
+	spinnerLiveText.Success("Container system prune... Done!")
 
 	return nil
 }

@@ -13,7 +13,7 @@ import (
 )
 
 func Connect(ctx *context.LedoContext, command *cli.Context) (hashicorp_vault.Vault, error) {
-	envPath := fmt.Sprintf("/%s/%s", strings.ToLower(ctx.Config.Docker.Namespace), strings.ToLower(ctx.Config.Docker.Name))
+	envPath := fmt.Sprintf("/%s/%s", strings.ToLower(ctx.Config.Container.Namespace), strings.ToLower(ctx.Config.Container.Name))
 	var vaultConfig = hashicorp_vault.VaultConfig{
 		Token:   command.String("token"),
 		Address: command.String("addr"),

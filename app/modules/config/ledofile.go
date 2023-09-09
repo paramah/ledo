@@ -7,14 +7,22 @@ import (
 	"os"
 )
 
+type SupportedRuntime string
+
+const (
+	Docker SupportedRuntime = "docker"
+	Podman SupportedRuntime = "podman"
+)
+
 type LedoFile struct {
-	Docker  DockerMap         `yaml:"docker"`
-	Modes   map[string]string `yaml:"modes"`
-	Project string            `yaml:"project"`
-	Deployment []Deployment   `yaml:"deployment,omitempty"`
+	Runtime    SupportedRuntime  `yaml:"runtime"`
+	Container  ContainerMap      `yaml:"container"`
+	Modes      map[string]string `yaml:"modes"`
+	Project    string            `yaml:"project"`
+	Deployment []Deployment      `yaml:"deployment,omitempty"`
 }
 
-type DockerMap struct {
+type ContainerMap struct {
 	Registry    string `yaml:"registry,omitempty"`
 	Namespace   string `yaml:"namespace,omitempty"`
 	Name        string `yaml:"name,omitempty"`
@@ -41,12 +49,12 @@ func NewLedoFile(s string) (*LedoFile, error) {
 	//Replace with env variables
 	mainService := os.Getenv("MAIN_SERVICE")
 	if len(mainService) != 0 {
-		t.Docker.MainService = mainService
+		t.Container.MainService = mainService
 	}
 
 	mainShell := os.Getenv("MAIN_SHELL")
 	if len(mainShell) != 0 {
-		t.Docker.Shell = mainShell
+		t.Container.Shell = mainShell
 	}
 
 	if err != nil {
