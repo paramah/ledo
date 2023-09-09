@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -8,8 +8,8 @@ import (
 
 var CmdDockerRm = cli.Command{
 	Name:        "rm",
-	Usage:       "remove docker-compose containers",
-	Description: `Remove all containers defined in a docker-compose `,
+	Usage:       "remove container-compose containers",
+	Description: `Remove all containers defined in a container-compose `,
 	Action:      RunComposeRm,
 }
 

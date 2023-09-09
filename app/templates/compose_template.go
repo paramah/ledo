@@ -50,7 +50,7 @@ services:
       APP_ENV: prod
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=network-{{.Config.Container.Namespace}}"
+      - "traefik.container.network=network-{{.Config.Container.Namespace}}"
       - "traefik.http.routers.{{.Config.Container.MainService}}.rule=Host(app.example.com)"
       - "traefik.http.routers.{{.Config.Container.MainService}}.service={{.Config.Container.MainService}}"
       - "traefik.http.services.{{.Config.Container.MainService}}.loadbalancer.server.port=80"

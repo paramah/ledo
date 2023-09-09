@@ -10,8 +10,8 @@ import (
 var CmdDockerFqn = cli.Command{
 	Name:        "fqn",
 	Aliases:     []string{"f"},
-	Usage:       "docker image fqn",
-	Description: `Get fqn docker image defined as main service in config file`,
+	Usage:       "container image fqn",
+	Description: `Get fqn container image defined as main service in config file`,
 	Action:      RunDockerFqn,
 }
 

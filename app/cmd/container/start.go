@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,7 +9,7 @@ import (
 var CmdComposeStart = cli.Command{
 	Name:        "start",
 	Usage:       "start containers",
-	Description: `Start all containers defined in docker-compose stack run mode`,
+	Description: `Start all containers defined in container-compose stack run mode`,
 	Action:      RunComposeStart,
 }
 

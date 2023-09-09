@@ -36,7 +36,7 @@ func DockerEcrLogin(ctx *context.LedoContext) error {
 		logger.Critical("ECR endpoint address parse error", err)
 		return err
 	}
-	err = ctx.ExecCmdSilent("docker", []string{"login", "-u", "AWS", "-p", string(trimLeftChars(string(sDec), 4)), registryAddr.Host})
+	err = ctx.ExecCmdSilent("container", []string{"login", "-u", "AWS", "-p", string(trimLeftChars(string(sDec), 4)), registryAddr.Host})
 	if err != nil {
 		return err
 	}
@@ -61,7 +61,7 @@ func ExecDockerPush(ctx *context.LedoContext, command cli.Args) {
 	image := ShowDockerImageFQN(ctx)
 	args = append(args, "push")
 	args = append(args, image+":"+version)
-	err := ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("container", args[0:])
 	if err != nil {
 		return
 	}
@@ -76,7 +76,7 @@ func ExecDockerRetag(ctx *context.LedoContext, command cli.Args) {
 	args = append(args, "tag")
 	args = append(args, image+":"+from)
 	args = append(args, image+":"+to)
-	err := ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("container", args[0:])
 	if err != nil {
 		return
 	}
@@ -101,7 +101,7 @@ func ExecDockerBuild(ctx *context.LedoContext, command cli.Args, cmdCtx cli.Cont
 		args = append(args, "--target", cmdCtx.String("stage"))
 	}
 	args = append(args, ".")
-	err := ctx.ExecCmd("docker", args[0:])
+	err := ctx.ExecCmd("container", args[0:])
 	if err != nil {
 		return
 	}
@@ -117,7 +117,7 @@ func ExecDockerPruneContainers(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting containers to prune...")
-	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	output, _ := ctx.ExecCmdOutput("container", containerArgs[0:])
 	spinnerLiveText.Success("Getting containers to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -132,7 +132,7 @@ func ExecDockerPruneContainers(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, container)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		_, err := ctx.ExecCmdOutput("container", rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -159,7 +159,7 @@ func ExecDockerPruneImages(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting images to prune...")
-	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	output, _ := ctx.ExecCmdOutput("container", containerArgs[0:])
 	spinnerLiveText.Success("Getting images to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -174,7 +174,7 @@ func ExecDockerPruneImages(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rmi")
 		rmargs = append(rmargs, image)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		_, err := ctx.ExecCmdOutput("container", rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -201,7 +201,7 @@ func ExecDockerPruneVolumes(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting volumes to prune...")
-	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	output, _ := ctx.ExecCmdOutput("container", containerArgs[0:])
 	spinnerLiveText.Success("Getting volumes to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -217,7 +217,7 @@ func ExecDockerPruneVolumes(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, image)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		_, err := ctx.ExecCmdOutput("container", rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -244,7 +244,7 @@ func ExecDockerPruneNetworks(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting networks to prune...")
-	output, _ := ctx.ExecCmdOutput("docker", containerArgs[0:])
+	output, _ := ctx.ExecCmdOutput("container", containerArgs[0:])
 	spinnerLiveText.Success("Getting networks to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -259,7 +259,7 @@ func ExecDockerPruneNetworks(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "network")
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, network)
-		_, err := ctx.ExecCmdOutput("docker", rmargs[0:])
+		_, err := ctx.ExecCmdOutput("container", rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -285,7 +285,7 @@ func ExecDockerSystemPrune(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, "--volumes")
 	containerArgs = append(containerArgs, "--force")
 
-	err := ctx.ExecCmd("docker", containerArgs[0:])
+	err := ctx.ExecCmd("container", containerArgs[0:])
 	if err != nil {
 		spinnerLiveText.Fail("Container system prune... Error!")
 		return err

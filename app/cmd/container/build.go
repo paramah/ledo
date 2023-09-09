@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,8 +9,8 @@ import (
 var CmdComposeBuild = cli.Command{
 	Name:        "build",
 	Aliases:     []string{"b"},
-	Usage:       "build docker image",
-	Description: `Build all docker images`,
+	Usage:       "build container image",
+	Description: `Build all container images`,
 	Action:      RunComposeBuild,
 	Flags: []cli.Flag{
 		&cli.BoolFlag{

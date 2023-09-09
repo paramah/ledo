@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/context"
@@ -10,7 +10,7 @@ var CmdDockerLogin = cli.Command{
 	Name:        "login",
 	Aliases:     []string{"l"},
 	Usage:       "Container Registry login",
-	Description: `Login to docker registry`,
+	Description: `Login to container registry`,
 	Subcommands: []*cli.Command{
 		&CmdDockerEcrLogin,
 	},
@@ -43,7 +43,7 @@ var CmdDockerEcrLogin = cli.Command{
 		},
 	},
 	Usage:       "AWS Elastic Container Registry",
-	Description: `Login to docker registry`,
+	Description: `Login to container registry`,
 	Action:      RunDockerEcrLogin,
 }
 

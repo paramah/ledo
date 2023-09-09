@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,7 +9,7 @@ import (
 var CmdComposeStop = cli.Command{
 	Name:        "stop",
 	Usage:       "stop containers",
-	Description: `Stop all containers defined in docker-compose stack mode`,
+	Description: `Stop all containers defined in container-compose stack mode`,
 	Action:      RunComposeStop,
 }
 

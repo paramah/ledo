@@ -9,8 +9,8 @@ import (
 var CmdDockerRetag = cli.Command{
 	Name:        "retag",
 	Aliases:     []string{"r"},
-	Usage:       "retag docker image",
-	Description: `Change docker image tag`,
+	Usage:       "retag container image",
+	Description: `Change container image tag`,
 	ArgsUsage:   "fromTag toTag",
 	Action:      RunDockerRetag,
 }

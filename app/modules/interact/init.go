@@ -21,7 +21,7 @@ func InitLedoProject(dockerConfig config.ContainerMap) (config.ContainerMap, err
 	var qs = []*survey.Question{
 		{
 			Name:      "Registry",
-			Prompt:    &survey.Input{Message: "Enter docker registry address: ", Default: dockerConfig.Registry, Help: "Container registry for main service image"},
+			Prompt:    &survey.Input{Message: "Enter container registry address: ", Default: dockerConfig.Registry, Help: "Container registry for main service image"},
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},
@@ -39,7 +39,7 @@ func InitLedoProject(dockerConfig config.ContainerMap) (config.ContainerMap, err
 		},
 		{
 			Name:      "MainService",
-			Prompt:    &survey.Input{Message: "Enter docker-compose main service name: ", Default: dockerConfig.MainService, Help: "Main service, important if you want use ledo shell command or ledo run command"},
+			Prompt:    &survey.Input{Message: "Enter container-compose main service name: ", Default: dockerConfig.MainService, Help: "Main service, important if you want use ledo shell command or ledo run command"},
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},
@@ -51,7 +51,7 @@ func InitLedoProject(dockerConfig config.ContainerMap) (config.ContainerMap, err
 		},
 		{
 			Name:      "Username",
-			Prompt:    &survey.Input{Message: "Enter docker main service username: ", Default: dockerConfig.Username, Help: "Default user, if set ledo run command was execute with sudo user"},
+			Prompt:    &survey.Input{Message: "Enter container main service username: ", Default: dockerConfig.Username, Help: "Default user, if set ledo run command was execute with sudo user"},
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},

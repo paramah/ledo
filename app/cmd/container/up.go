@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -10,7 +10,7 @@ var CmdDockerUp = cli.Command{
 	Name:        "up",
 	Aliases:     []string{"u"},
 	Usage:       "up containers",
-	Description: `Up all containers defined in docker-compose use in current mode`,
+	Description: `Up all containers defined in container-compose use in current mode`,
 	Action:      RunComposeUp, Flags: []cli.Flag{
 		&cli.BoolFlag{
 			Name:     "no-detach",

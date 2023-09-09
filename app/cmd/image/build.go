@@ -9,8 +9,8 @@ import (
 var CmdDockerBuild = cli.Command{
 	Name:        "build",
 	Aliases:     []string{"b"},
-	Usage:       "build docker image",
-	Description: `Build docker image`,
+	Usage:       "build container image",
+	Description: `Build container image`,
 	ArgsUsage:   "version",
 	Action:      RunDockerBuild,
 	Flags: []cli.Flag{

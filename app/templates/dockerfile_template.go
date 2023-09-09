@@ -7,12 +7,12 @@ ENV DIR /usr/local
 WORKDIR ${DIR}
 
 # Copy entrypoint
-COPY docker/docker-entrypoint.sh /bin/docker-entrypoint.sh
+COPY container/container-entrypoint.sh /bin/container-entrypoint.sh
 
 # Copy project content
 COPY ./app $DIR
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["container-entrypoint.sh"]
 CMD [""]
 `
 var DockerFileTemplate_php = `
@@ -25,8 +25,8 @@ ENV DIR /var/www
 WORKDIR ${DIR}
 
 # Copy entrypoint
-COPY docker/docker-entrypoint.sh /bin/docker-entrypoint.sh
-RUN chmod +x /bin/docker-entrypoint.sh
+COPY container/container-entrypoint.sh /bin/container-entrypoint.sh
+RUN chmod +x /bin/container-entrypoint.sh
 
 # Develop packages
 RUN xdebug_enable
@@ -43,7 +43,7 @@ RUN /bin/composer install --no-scripts --no-interaction --no-autoloader && compo
 COPY --chown=www-data:www-data ./ $DIR
 
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["container-entrypoint.sh"]
 EXPOSE 80
 # done
 
@@ -80,9 +80,9 @@ RUN mv ${GOPATH}/src/${PACKAGE_NAME}/main /tmp/app \
 FROM busybox:stable-glibc
 
 COPY --from=compiler /tmp/app /usr/bin/app
-COPY docker/*-entrypoint.sh /usr/local/bin/
+COPY container/*-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["container-entrypoint.sh"]
 CMD ["/usr/bin/app"]
 
 EXPOSE 80

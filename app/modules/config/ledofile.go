@@ -10,7 +10,7 @@ import (
 type SupportedRuntime string
 
 const (
-	Docker SupportedRuntime = "docker"
+	Docker SupportedRuntime = "container"
 	Podman SupportedRuntime = "podman"
 )
 

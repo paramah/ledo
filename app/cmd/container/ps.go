@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -10,7 +10,7 @@ var CmdDockerPs = cli.Command{
 	Name:        "ps",
 	Aliases:     []string{"p"},
 	Usage:       "list running containers",
-	Description: `List all containers defined in docker-compose use in current mode`,
+	Description: `List all containers defined in container-compose use in current mode`,
 	Action:      RunComposePs,
 }
 

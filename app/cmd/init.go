@@ -48,7 +48,7 @@ func runInitLedo(cmd *cli.Context) error {
 		logger.Critical(".ledo.yml render template error", err)
 	}
 	//advRun = false
-	advRun = interact.InitAdvancedConfigurationAsk("Run advanced docker mode configuration?")
+	advRun = interact.InitAdvancedConfigurationAsk("Run advanced container mode configuration?")
 	if advRun == true {
 		ctx := context.InitCommand(cmd)
 		dConf, _ := interact.InitDocker()
@@ -64,16 +64,16 @@ func runInitLedo(cmd *cli.Context) error {
 		for _, composeMode := range interact.PredefinedDockerComposeModes {
 			err = compose.CreateComposeFile(ctx, projectComposeConfig, composeMode)
 			if err != nil {
-				logger.Critical("Create docker-compose file error", err)
+				logger.Critical("Create container-compose file error", err)
 			}
 		}
 
-		_, err = helper.CreateFile(ctx, "./docker/docker-entrypoint.sh", templates.DockerEntrypointTemplate_bash, true)
+		_, err = helper.CreateFile(ctx, "./container/container-entrypoint.sh", templates.DockerEntrypointTemplate_bash, true)
 		if err != nil {
-			logger.Critical("Create docker-entrypoint.sh file error", err)
+			logger.Critical("Create container-entrypoint.sh file error", err)
 		}
 
-		_, err = helper.CreateFile(ctx, "./docker/test-entrypoint.sh", templates.TestEntrypointTemplate_bash, true)
+		_, err = helper.CreateFile(ctx, "./container/test-entrypoint.sh", templates.TestEntrypointTemplate_bash, true)
 		if err != nil {
 			logger.Critical("Create test-entrypoint.sh file error", err)
 		}

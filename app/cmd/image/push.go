@@ -9,8 +9,8 @@ import (
 var CmdDockerPush = cli.Command{
 	Name:        "push",
 	Aliases:     []string{"p"},
-	Usage:       "push docker to registry",
-	Description: `Push docker image to docker registry`,
+	Usage:       "push container to registry",
+	Description: `Push container image to container registry`,
 	ArgsUsage:   "version",
 	Action:      RunDockerPush,
 }

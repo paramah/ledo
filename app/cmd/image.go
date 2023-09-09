@@ -10,8 +10,8 @@ var CmdImage = cli.Command{
 	Name:        "image",
 	Aliases:     []string{"i"},
 	Category:    catHelpers,
-	Usage:       "docker container helper",
-	Description: `docker container helper`,
+	Usage:       "container container helper",
+	Description: `container container helper`,
 	Subcommands: []*cli.Command{
 		&image.CmdDockerFqn,
 		&image.CmdDockerPush,

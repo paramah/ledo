@@ -26,7 +26,7 @@ func CreateDockerService() (helper.DockerProjectAdditionalServiceCfg, error) {
 		//{
 		//	Name: "DockerServiceMode",
 		//	Prompt: &survey.Select{
-		//		Message:  "Select docker-compose mode (file)",
+		//		Message:  "Select container-compose mode (file)",
 		//		PageSize: 10,
 		//		Options:  PredefinedDockerComposeModes,
 		//	},

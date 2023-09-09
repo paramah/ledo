@@ -1,7 +1,7 @@
 package templates
 
 var LedoConfigurationFileTemplate = `
-docker:
+container:
   registry: {{.Registry}}
   namespace: {{.Namespace}}
   name: {{.Name}}
@@ -11,7 +11,7 @@ docker:
   username: {{.Username}}
   {{end}}
 modes:
-  base: docker/docker-compose.yml
-  dev: docker/docker-compose.yml docker/docker-compose.dev.yml
-  test: docker/docker-compose.yml docker/docker-compose.test.yml
+  base: container/container-compose.yml
+  dev: container/container-compose.yml container/container-compose.dev.yml
+  test: container/container-compose.yml container/container-compose.test.yml
 `

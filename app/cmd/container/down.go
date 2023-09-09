@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,7 +9,7 @@ import (
 var CmdComposeDown = cli.Command{
 	Name:        "down",
 	Usage:       "down all containers",
-	Description: `Down all containers defined in docker-compose`,
+	Description: `Down all containers defined in container-compose`,
 	Action:      RunComposeDown,
 }
 

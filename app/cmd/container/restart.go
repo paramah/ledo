@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,7 +9,7 @@ import (
 var CmdComposeRestart = cli.Command{
 	Name:        "restart",
 	Usage:       "Restart containers",
-	Description: `Restart all containers defined in docker-compose`,
+	Description: `Restart all containers defined in container-compose`,
 	Action:      RunComposeRestart,
 }
 

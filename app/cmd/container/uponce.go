@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,7 +9,7 @@ import (
 var CmdComposeUpOnce = cli.Command{
 	Name:        "uponce",
 	Usage:       "up one container",
-	Description: `Up one container from docker compose stack`,
+	Description: `Up one container from container compose stack`,
 	Action:      RunComposeUpOnce,
 }
 

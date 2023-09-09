@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/AlecAivazis/survey/v2"
@@ -11,8 +11,8 @@ import (
 
 var CmdPrune = cli.Command{
 	Name:        "prune",
-	Usage:       "clean and prune docker ",
-	Description: `Old and working docker system prune version.`,
+	Usage:       "clean and prune container ",
+	Description: `Old and working container system prune version.`,
 	Action:      RunPrune,
 }
 
@@ -21,14 +21,14 @@ func RunPrune(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
 
 	if ctx.Mode.CurrentMode != "dev" {
-		logger.Exit("docker prune is only available in dev mode!")
+		logger.Exit("container prune is only available in dev mode!")
 		os.Exit(255)
 	}
 
 	wantPrune := false
 	prompt := &survey.Confirm{
-    	Message: "Do You want prune docker (all data will be irretrievably lost) ?",
-    }
+		Message: "Do You want prune container (all data will be irretrievably lost) ?",
+	}
 	err = survey.AskOne(prompt, &wantPrune)
 	if err != nil {
 		return err

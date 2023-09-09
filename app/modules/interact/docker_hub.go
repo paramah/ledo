@@ -13,7 +13,7 @@ func SelectDockerHubTag(dockerImage string) (string, error) {
 		{
 			Name: "tags",
 			Prompt: &survey.Select{
-				Message:  "Select available docker image tag",
+				Message:  "Select available container image tag",
 				PageSize: 10,
 				Options:  docker_hub.ImageTagsToArray(dockerImageTags),
 			},
@@ -32,7 +32,7 @@ func SelectDockerHubTag(dockerImage string) (string, error) {
 func EnterDockerImage() (string, error) {
 	dockerImage := ""
 	prompt := &survey.Input{
-		Message: "Enter docker base image: ",
+		Message: "Enter container base image: ",
 		Help:    "This is base Dockerfile image (FROM image)",
 	}
 	survey.AskOne(prompt, &dockerImage)
@@ -47,7 +47,7 @@ func SearchDockerImage(image string) (string, error) {
 		{
 			Name: "image",
 			Prompt: &survey.Select{
-				Message:  "Select available docker image",
+				Message:  "Select available container image",
 				PageSize: 100,
 				Options:  docker_hub.DockerImageToArray(dockerImages),
 			},
