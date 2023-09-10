@@ -17,7 +17,7 @@ Ledo wspiera `docker` oraz `podman`, w przypadku `podman` należy go odpowiednio
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/paramah/ledo)
 
-[Ledo matrix](https://matrix.to/#/#ledo:matrix.cynarski.dev)
+[![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#ledo:matrix.cynarski.dev)
 
 # Install
 
