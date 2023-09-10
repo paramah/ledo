@@ -47,7 +47,7 @@ go install github.com/paramah/ledo@v1.2.0
 │   ├── docker-compose.test.yml
 │   ├── docker-compose.yml
 │   ├── docker-entrypoint.sh
-│   ├── etc (**files to copy in container**)
+│   ├── etc (**files to be copied into the container**)
 │   └── test-entrypoint.sh
 ├── Dockerfile
 ```
