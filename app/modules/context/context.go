@@ -76,6 +76,16 @@ func LoadConfigFile() (*config.LedoFile, error) {
 	return cfg, nil
 }
 
+func (lx *LedoContext) GetRuntimeCommand() string {
+	runtime := lx.Config.Runtime
+	return runtime.Command()
+}
+
+func (lx *LedoContext) GetRuntimeCompose() string {
+	runtime := lx.Config.Runtime
+	return runtime.Compose()
+}
+
 func (lx *LedoContext) ExecCmdOutput(cmd string, cmdArgs []string) ([]byte, error) {
 	command, _ := exec.Command(cmd, cmdArgs...).Output()
 	return command, nil

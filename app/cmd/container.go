@@ -5,12 +5,12 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var CmdDocker = cli.Command{
+var CmdContainer = cli.Command{
 	Name:        "container",
 	Aliases:     []string{"d"},
 	Category:    catHelpers,
 	Usage:       "container helper",
-	Description: `Manage container-compose in project`,
+	Description: `Manage compose tools (docker or podman) in project`,
 	Subcommands: []*cli.Command{
 		&container.CmdDockerPs,
 		&container.CmdDockerUp,

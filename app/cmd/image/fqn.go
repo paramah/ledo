@@ -2,8 +2,8 @@ package image
 
 import (
 	"fmt"
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 )
 
@@ -17,6 +17,6 @@ var CmdDockerFqn = cli.Command{
 
 func RunDockerFqn(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	fmt.Printf("%v", docker.ShowDockerImageFQN(ctx))
+	fmt.Printf("%v", container.ShowImageFQN(ctx))
 	return nil
 }

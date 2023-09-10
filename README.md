@@ -1,4 +1,3 @@
-
 # Table of contents
 
 - [What is ledo?](#about)
@@ -10,9 +9,11 @@
   - [Docker compose basics](#docker-compose)
 - [Thanks](#thanks)
 
-
 # About
+
 Ledo (LeadDocker) is a simple tool to facilitate the daily work with docker-compose in a project (it doesn't work in swarm for now). It allows you to create run modes and fully automate them.
+
+Ledo wspiera `docker` oraz `podman`, w przypadku `podman` należy go odpowiednio skonfigurować na własnym systemie (linki do tutoriali znajdziesz poniżej)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/paramah/ledo)
 
@@ -20,7 +21,7 @@ Ledo (LeadDocker) is a simple tool to facilitate the daily work with docker-comp
 
 ## Using binnary
 
-Go to [Release page](https://github.com/paramah/ledo/releases), download, unpack and move to some `PATH` directory. 
+Go to [Release page](https://github.com/paramah/ledo/releases), download, unpack and move to some `PATH` directory.
 
 You can also use the installation script:
 
@@ -35,6 +36,21 @@ go install github.com/paramah/ledo@v1.2.0
 ```
 
 # Usage
+
+## Project code structure
+
+```
+├── app (**application**)
+├── docker (**docker stack**)
+│   ├── docker-compose.dev.yml
+│   ├── docker-compose.launch.yml
+│   ├── docker-compose.test.yml
+│   ├── docker-compose.yml
+│   ├── docker-entrypoint.sh
+│   ├── etc (**files to copy in container**)
+│   └── test-entrypoint.sh
+├── Dockerfile
+```
 
 ## Init
 
@@ -60,6 +76,15 @@ For comfortable work with `ledo` modes are important. As you can see in the exam
 Ledo executes the `docker-compose` command with properly prepared parameters, depending on the mode selected
 
 [![asciicast](https://asciinema.org/a/fPVl1wmtZpZXnPl3ZazoenUhD.png)](https://asciinema.org/a/fPVl1wmtZpZXnPl3ZazoenUhD)
+
+## Podman compose
+
+For `podman` Ledo executes `podman-compose` command.
+
+## Podman configuration
+
+- [Podman tutorial](https://github.com/containers/podman/blob/main/docs/tutorials/podman_tutorial.md)
+- [Rootless tutorial](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md)
 
 # Thanks
 

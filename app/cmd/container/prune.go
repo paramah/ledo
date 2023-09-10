@@ -3,8 +3,8 @@ package container
 import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/paramah/ledo/app/logger"
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 	"os"
 )
@@ -34,7 +34,7 @@ func RunPrune(cmd *cli.Context) error {
 		return err
 	}
 	if wantPrune {
-		err = docker.ExecDockerPrune(ctx)
+		err = container.ExecPrune(ctx)
 		if err != nil {
 			return err
 		}

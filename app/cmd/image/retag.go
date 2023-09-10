@@ -1,8 +1,8 @@
 package image
 
 import (
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 )
 
@@ -17,6 +17,6 @@ var CmdDockerRetag = cli.Command{
 
 func RunDockerRetag(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	docker.ExecDockerRetag(ctx, cmd.Args())
+	container.ExecRetag(ctx, cmd.Args())
 	return nil
 }

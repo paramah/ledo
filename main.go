@@ -25,7 +25,7 @@ func main() {
 	app.Version = GetCurrentVersion()
 	app.Commands = []*cli.Command{
 		&cmd.CmdInit,
-		&cmd.CmdDocker,
+		&cmd.CmdContainer,
 		&cmd.CmdImage,
 		&cmd.CmdSecrets,
 		&cmd.CmdMode,

@@ -1,8 +1,8 @@
 package image
 
 import (
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 )
 
@@ -17,6 +17,6 @@ var CmdDockerPush = cli.Command{
 
 func RunDockerPush(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	docker.ExecDockerPush(ctx, cmd.Args())
+	container.ExecPush(ctx, cmd.Args())
 	return nil
 }
