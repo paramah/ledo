@@ -3,16 +3,17 @@ package compose
 import (
 	"bytes"
 	"errors"
+	"io/ioutil"
+	"os/exec"
+	"regexp"
+	"strings"
+
 	"github.com/Masterminds/semver"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/context"
 	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v3"
-	"io/ioutil"
-	"os/exec"
-	"regexp"
-	"strings"
 )
 
 const DockerComposeVersion = ">= 1.28.0"
@@ -124,7 +125,7 @@ func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
 func ExecComposerDown(ctx *context.LedoContext) {
 	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
-	args = append(args, "down")
+	args = append(args, "down", "--volumes")
 	ctx.ExecCmd("docker-compose", args[0:])
 }
 
