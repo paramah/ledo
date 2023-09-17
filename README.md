@@ -68,8 +68,8 @@ docker:
   shell: /bin/bash
   username: www-data
 modes:
-  dev: container/container-compose.yml container/container-compose.dev.yml
-  traefik: container/container-compose.yml container/container-compose.traefik.yml
+  dev: docker/docker-compose.yml docker/docker-compose.dev.yml
+  traefik: docker/docker-compose.yml docker/docker-compose.traefik.yml
 ```
 
 For comfortable work with `ledo` modes are important. As you can see in the example above we have defined two modes (dev and traefik).
