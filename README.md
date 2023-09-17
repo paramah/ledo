@@ -59,6 +59,7 @@ go install github.com/paramah/ledo@v1.2.0
 Using the `ledo init` command, you can create a `.ledo.yml` configuration file that will contain all the necessary data to use ledo, example configuration file:
 
 ```yaml
+runtime: docker
 docker:
   registry: registry.example.com
   namespace: Test

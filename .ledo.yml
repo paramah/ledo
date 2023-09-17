@@ -1,3 +1,4 @@
+runtime: docker
 docker:
   registry: registry.cynarski.pl
   namespace: LeDo
@@ -5,5 +6,5 @@ docker:
   main_service: ledo
   shell: /bin/sh
 modes:
-  dev: container/container-compose.yml container/container-compose.dev.yml
-  launch: container/container-compose.yml
+  dev: docker/docker-compose.yml docker/docker-compose.dev.yml
+  launch: docker/docker-compose.yml
