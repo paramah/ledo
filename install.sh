@@ -7,13 +7,13 @@ readme="https://leaddocker.tech"
 determine_os() {
   case "$(uname -s)" in
   Darwin)
-    echo "Darwin"
+    echo "darwin"
     ;;
   MINGW64*)
-    echo "Windows"
+    echo "windows"
     ;;
   *)
-    echo "Linux"
+    echo "linux"
     ;;
   esac
 }
@@ -24,13 +24,13 @@ determine_arch() {
     echo "armv7"
     ;;
   x86_64)
-    echo "x86_64"
+    echo "amd64"
     ;;
   arm64)
     echo "arm64"
     ;;
   *)
-    echo "x86_64"
+    echo "amd64"
     ;;
   esac
 }
