@@ -7,7 +7,7 @@ import (
 
 var CmdContainer = cli.Command{
 	Name:        "container",
-	Aliases:     []string{"d"},
+	Aliases:     []string{"c", "docker", "d"},
 	Category:    catHelpers,
 	Usage:       "container helper",
 	Description: `Manage compose tools (docker or podman) in project`,
