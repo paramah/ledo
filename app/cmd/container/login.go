@@ -43,7 +43,7 @@ var CmdDockerEcrLogin = cli.Command{
 		},
 	},
 	Usage:       "AWS Elastic Docker Registry",
-	Description: `Login to AWS Elastic Docker Registry`,
+	Description: `Login to AWS Elastic Container Registry`,
 	Action:      RunDockerEcrLogin,
 }
 
