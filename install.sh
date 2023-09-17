@@ -1,7 +1,7 @@
 #!/bin/sh
 target=/usr/local/bin
 user_arg=$1
-stream_cmd="curl -sL install.leaddocker.tech"
+stream_cmd="curl -sL https://raw.githubusercontent.com/paramah/ledo/master/install.sh"
 readme="https://leaddocker.tech"
 
 determine_os() {
