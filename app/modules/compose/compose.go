@@ -3,27 +3,27 @@ package compose
 import (
 	"bytes"
 	"errors"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"regexp"
+	"strings"
+
 	"github.com/Masterminds/semver"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/context"
 	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v3"
-	"io/ioutil"
-	"os/exec"
-	"regexp"
-	"strings"
 )
 
 const DockerComposeVersion = ">= 1.28.0"
 
 func CheckDockerComposeVersion() {
-	// cmd := exec.Command(ctx.GetRuntimeCompose(), "--version")
 	cmd := exec.Command("docker-compose", "--version")
 	var output bytes.Buffer
 	cmd.Stdout = &output
 	err := cmd.Run()
-
 	if err != nil {
 		logger.Critical("No docker-compose installed. Please install docker-compose ie. via `pip3 install docker-compose`", err)
 	}
@@ -38,6 +38,18 @@ func CheckDockerComposeVersion() {
 	if !verConstraint.Check(composeSemVer) {
 		logger.Critical("Wrong docker-compose version, please update to "+DockerComposeVersion+" or higher.", nil)
 	}
+	os.Exit(1)
+}
+
+func CheckPodmanComposeVersion() {
+	cmd := exec.Command("podman-compose", "--version")
+	var output bytes.Buffer
+	cmd.Stdout = &output
+	err := cmd.Run()
+	if err != nil {
+		logger.Critical("No podman-compose installed. Please install podman-compose ie. via `pip3 install podman-compose`", err)
+	}
+	os.Exit(1)
 }
 
 func MergeComposerFiles(filenames ...string) (string, error) {

@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/paramah/ledo/app/cmd"
-	"github.com/paramah/ledo/app/modules/compose"
 	"github.com/urfave/cli/v2"
 )
 
@@ -17,7 +16,6 @@ func GetCurrentVersion() string {
 
 func main() {
 	app := cli.NewApp()
-	compose.CheckDockerComposeVersion()
 	app.Name = "ledo"
 	app.Usage = "container-compose and container workflow improvement tool"
 	app.Description = appDescription

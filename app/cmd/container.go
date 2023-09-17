@@ -2,6 +2,9 @@ package cmd
 
 import (
 	"github.com/paramah/ledo/app/cmd/container"
+	"github.com/paramah/ledo/app/modules/compose"
+	"github.com/paramah/ledo/app/modules/config"
+	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
 )
 
@@ -29,5 +32,17 @@ var CmdContainer = cli.Command{
 		&container.CmdComposeStop,
 		&container.CmdDockerLogin,
 		&container.CmdPrune,
+	},
+	Before: func(cmd *cli.Context) error {
+		ctx := context.InitCommand(cmd)
+		if ctx.Config.Runtime == config.Docker {
+			compose.CheckDockerComposeVersion()
+		}
+
+		if ctx.Config.Runtime == config.Podman {
+			compose.CheckPodmanComposeVersion()
+		}
+
+		return nil
 	},
 }
