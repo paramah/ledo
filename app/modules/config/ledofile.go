@@ -1,10 +1,11 @@
 package config
 
 import (
-	"github.com/paramah/ledo/app/logger"
-	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
+
+	"github.com/paramah/ledo/app/logger"
+	"gopkg.in/yaml.v3"
 )
 
 type SupportedRuntime string
@@ -38,7 +39,7 @@ func (e SupportedRuntime) Compose() string {
 
 type LedoFile struct {
 	Runtime    SupportedRuntime  `yaml:"runtime"`
-	Container  ContainerMap      `yaml:"container"`
+	Container  ContainerMap      `yaml:"docker"`
 	Modes      map[string]string `yaml:"modes"`
 	Project    string            `yaml:"project"`
 	Deployment []Deployment      `yaml:"deployment,omitempty"`
@@ -68,7 +69,7 @@ func NewLedoFile(s string) (*LedoFile, error) {
 	t := &LedoFile{}
 	err = yaml.Unmarshal(yamlFile, t)
 
-	//Replace with env variables
+	// Replace with env variables
 	mainService := os.Getenv("MAIN_SERVICE")
 	if len(mainService) != 0 {
 		t.Container.MainService = mainService

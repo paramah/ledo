@@ -78,7 +78,7 @@ var helpTemplate = bold(`
 
  EXAMPLES
    ledo init                       # init ledo in your project
-   ledo container ps                  # print list of container containers
+   ledo container ps               # print list of container containers
 
   
  ABOUT
