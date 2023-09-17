@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
-	"os"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -38,7 +37,6 @@ func CheckDockerComposeVersion() {
 	if !verConstraint.Check(composeSemVer) {
 		logger.Critical("Wrong docker-compose version, please update to "+DockerComposeVersion+" or higher.", nil)
 	}
-	os.Exit(1)
 }
 
 func CheckPodmanComposeVersion() {
@@ -49,7 +47,7 @@ func CheckPodmanComposeVersion() {
 	if err != nil {
 		logger.Critical("No podman-compose installed. Please install podman-compose ie. via `pip3 install podman-compose`", err)
 	}
-	os.Exit(1)
+
 }
 
 func MergeComposerFiles(filenames ...string) (string, error) {

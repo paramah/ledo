@@ -1,3 +1,5 @@
+![logo](./docs/logo.svg)
+
 # Table of contents
 
 - [What is ledo?](#about)
