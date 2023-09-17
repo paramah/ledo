@@ -17,25 +17,25 @@ func CreateComposeFile(ctx *context.LedoContext, dockerProject helper.DockerProj
 		}
 	}
 
-	composeFilename := "./container/container-compose.yml"
+	composeFilename := "./docker/docker-compose.yml"
 	templateName := templates.LedoDockerComposeBaseFileTemplate_base
 
 	switch composeMode {
 	case "base":
 		templateName = templates.LedoDockerComposeBaseFileTemplate_base
-		composeFilename = "./container/container-compose.yml"
+		composeFilename = "./docker/docker-compose.yml"
 		break
 	case "dev":
 		templateName = templates.LedoDockerComposeBaseFileTemplate_dev
-		composeFilename = "./container/container-compose." + composeMode + ".yml"
+		composeFilename = "./docker/docker-compose." + composeMode + ".yml"
 		break
 	case "test":
 		templateName = templates.LedoDockerComposeBaseFileTemplate_test
-		composeFilename = "./container/container-compose." + composeMode + ".yml"
+		composeFilename = "./docker/docker-compose." + composeMode + ".yml"
 		break
 	case "traefik":
 		templateName = templates.LedoDockerComposeBaseFileTemplate_traefik
-		composeFilename = "./container/container-compose." + composeMode + ".yml"
+		composeFilename = "./docker/docker-compose." + composeMode + ".yml"
 		break
 	}
 

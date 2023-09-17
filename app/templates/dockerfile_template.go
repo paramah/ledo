@@ -7,7 +7,7 @@ ENV DIR /usr/local
 WORKDIR ${DIR}
 
 # Copy entrypoint
-COPY docker/container-entrypoint.sh /bin/container-entrypoint.sh
+COPY docker/docker-entrypoint.sh /bin/docker-entrypoint.sh
 
 # Copy project content
 COPY ./app $DIR
@@ -25,8 +25,8 @@ ENV DIR /var/www
 WORKDIR ${DIR}
 
 # Copy entrypoint
-COPY docker/container-entrypoint.sh /bin/container-entrypoint.sh
-RUN chmod +x /bin/container-entrypoint.sh
+COPY docker/docker-entrypoint.sh /bin/docker-entrypoint.sh
+RUN chmod +x /bin/docker-entrypoint.sh
 
 # Develop packages
 RUN xdebug_enable

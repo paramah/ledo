@@ -9,7 +9,7 @@ import (
 var CmdComposeRestart = cli.Command{
 	Name:        "restart",
 	Usage:       "Restart containers",
-	Description: `Restart all containers defined in container-compose`,
+	Description: `Restart all containers defined in docker-compose`,
 	Action:      RunComposeRestart,
 }
 

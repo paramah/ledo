@@ -8,8 +8,8 @@ import (
 
 var CmdDockerRm = cli.Command{
 	Name:        "rm",
-	Usage:       "remove container-compose containers",
-	Description: `Remove all containers defined in a container-compose `,
+	Usage:       "remove docker-compose containers",
+	Description: `Remove all containers defined in a docker-compose `,
 	Action:      RunComposeRm,
 }
 

@@ -9,7 +9,7 @@ import (
 var CmdComposeStop = cli.Command{
 	Name:        "stop",
 	Usage:       "stop containers",
-	Description: `Stop all containers defined in container-compose stack mode`,
+	Description: `Stop all containers defined in docker-compose stack mode`,
 	Action:      RunComposeStop,
 }
 

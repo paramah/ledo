@@ -17,7 +17,7 @@ func GetCurrentVersion() string {
 func main() {
 	app := cli.NewApp()
 	app.Name = "ledo"
-	app.Usage = "container-compose and container workflow improvement tool"
+	app.Usage = "docker-compose and container workflow improvement tool"
 	app.Description = appDescription
 	app.CustomAppHelpTemplate = helpTemplate
 	app.Version = GetCurrentVersion()
@@ -39,9 +39,9 @@ func main() {
 	}
 }
 
-var appDescription = `LeadDocker (ledo) is a simple tool for improve container and container-compose workflow in your project.
+var appDescription = `LeadDocker (ledo) is a simple tool for improve container and docker-compose workflow in your project.
 What you can do with this tool:
-=> create and manage container-compose workflow in a project
+=> create and manage docker-compose workflow in a project
 => build container image for project (automatic fqn and container registry)
 => login to the container registry (with AWS ECR support)
 

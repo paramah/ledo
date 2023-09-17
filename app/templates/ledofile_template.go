@@ -11,7 +11,7 @@ container:
   username: {{.Username}}
   {{end}}
 modes:
-  base: container/container-compose.yml
-  dev: container/container-compose.yml container/container-compose.dev.yml
-  test: container/container-compose.yml container/container-compose.test.yml
+  base: container/docker-compose.yml
+  dev: container/docker-compose.yml container/docker-compose.dev.yml
+  test: container/docker-compose.yml container/docker-compose.test.yml
 `

@@ -1,12 +1,13 @@
 package container
 
 import (
+	"os"
+
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
 	"github.com/urfave/cli/v2"
-	"os"
 )
 
 var CmdPrune = cli.Command{
@@ -27,7 +28,7 @@ func RunPrune(cmd *cli.Context) error {
 
 	wantPrune := false
 	prompt := &survey.Confirm{
-		Message: "Do You want prune container (all data will be irretrievably lost) ?",
+		Message: "Do You want prune containers (all data will be irretrievably lost) ?",
 	}
 	err = survey.AskOne(prompt, &wantPrune)
 	if err != nil {
