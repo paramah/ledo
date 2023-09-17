@@ -43,7 +43,7 @@ go install github.com/paramah/ledo@v1.2.0
 
 ```
 ├── app (**application**)
-├── docker (**docker stack**)
+├── docker (**docker/podman stack**)
 │   ├── docker-compose.dev.yml
 │   ├── docker-compose.launch.yml
 │   ├── docker-compose.test.yml
