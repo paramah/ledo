@@ -2,14 +2,15 @@ package context
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"strings"
+
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/config"
 	"github.com/paramah/ledo/app/modules/git"
 	"github.com/paramah/ledo/app/modules/mode"
 	"github.com/urfave/cli/v2"
-	"os"
-	"os/exec"
-	"strings"
 )
 
 type LedoContext struct {
@@ -50,7 +51,7 @@ func InitCommand(ctx *cli.Context) *LedoContext {
 	c.Config = cfg
 
 	args := []string{"--env-file", envFile}
-	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Docker.Namespace, "/", "-", -1)))
+	args = append(args, "--project-name", strings.ToLower(strings.Replace(c.Config.Container.Namespace, "/", "-", -1)))
 
 	composes, _ := ledoMode.GetModeConfig()
 	for _, element := range composes {
@@ -73,6 +74,16 @@ func LoadConfigFile() (*config.LedoFile, error) {
 
 	cfg, _ := config.NewLedoFile(configYml)
 	return cfg, nil
+}
+
+func (lx *LedoContext) GetRuntimeCommand() string {
+	runtime := lx.Config.Runtime
+	return runtime.Command()
+}
+
+func (lx *LedoContext) GetRuntimeCompose() string {
+	runtime := lx.Config.Runtime
+	return runtime.Compose()
 }
 
 func (lx *LedoContext) ExecCmdOutput(cmd string, cmdArgs []string) ([]byte, error) {

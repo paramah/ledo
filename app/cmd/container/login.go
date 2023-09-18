@@ -1,8 +1,8 @@
-package docker
+package container
 
 import (
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 )
 
@@ -10,7 +10,7 @@ var CmdDockerLogin = cli.Command{
 	Name:        "login",
 	Aliases:     []string{"l"},
 	Usage:       "Docker Registry login",
-	Description: `Login to docker registry`,
+	Description: `Login to container registry`,
 	Subcommands: []*cli.Command{
 		&CmdDockerEcrLogin,
 	},
@@ -43,12 +43,12 @@ var CmdDockerEcrLogin = cli.Command{
 		},
 	},
 	Usage:       "AWS Elastic Docker Registry",
-	Description: `Login to docker registry`,
+	Description: `Login to AWS Elastic Container Registry`,
 	Action:      RunDockerEcrLogin,
 }
 
 func RunDockerEcrLogin(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	docker.DockerEcrLogin(ctx)
+	container.DockerEcrLogin(ctx)
 	return nil
 }

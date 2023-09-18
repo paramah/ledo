@@ -1,16 +1,16 @@
 package image
 
 import (
+	"github.com/paramah/ledo/app/modules/container"
 	"github.com/paramah/ledo/app/modules/context"
-	"github.com/paramah/ledo/app/modules/docker"
 	"github.com/urfave/cli/v2"
 )
 
 var CmdDockerBuild = cli.Command{
 	Name:        "build",
 	Aliases:     []string{"b"},
-	Usage:       "build docker image",
-	Description: `Build docker image`,
+	Usage:       "build container image",
+	Description: `Build container image`,
 	ArgsUsage:   "version",
 	Action:      RunDockerBuild,
 	Flags: []cli.Flag{
@@ -40,6 +40,6 @@ var CmdDockerBuild = cli.Command{
 
 func RunDockerBuild(cmd *cli.Context) error {
 	ctx := context.InitCommand(cmd)
-	docker.ExecDockerBuild(ctx, cmd.Args(), *cmd)
+	container.ExecBuild(ctx, cmd.Args(), *cmd)
 	return nil
 }

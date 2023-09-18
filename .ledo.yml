@@ -1,3 +1,4 @@
+runtime: docker
 docker:
   registry: registry.cynarski.pl
   namespace: LeDo

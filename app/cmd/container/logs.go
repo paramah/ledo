@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -10,7 +10,7 @@ var CmdComposeLogs = cli.Command{
 	Name:        "logs",
 	Aliases:     []string{"l"},
 	Usage:       "logs from containers",
-	Description: `Get fqn docker image defined as main service in config file`,
+	Description: `Get fqn container image defined as main service in config file`,
 	Action:      RunComposeLogs,
 }
 

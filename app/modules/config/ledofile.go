@@ -1,20 +1,51 @@
 package config
 
 import (
-	"github.com/paramah/ledo/app/logger"
-	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
+
+	"github.com/paramah/ledo/app/logger"
+	"gopkg.in/yaml.v3"
 )
 
-type LedoFile struct {
-	Docker  DockerMap         `yaml:"docker"`
-	Modes   map[string]string `yaml:"modes"`
-	Project string            `yaml:"project"`
-	Deployment []Deployment   `yaml:"deployment,omitempty"`
+type SupportedRuntime string
+
+const (
+	Docker SupportedRuntime = "docker"
+	Podman SupportedRuntime = "podman"
+)
+
+func (e SupportedRuntime) Command() string {
+	switch e {
+	case Docker:
+		return "docker"
+	case Podman:
+		return "podman"
+	default:
+		return "docker"
+	}
 }
 
-type DockerMap struct {
+func (e SupportedRuntime) Compose() string {
+	switch e {
+	case Docker:
+		return "docker-compose"
+	case Podman:
+		return "podman-compose"
+	default:
+		return "docker-compose"
+	}
+}
+
+type LedoFile struct {
+	Runtime    SupportedRuntime  `yaml:"runtime"`
+	Container  ContainerMap      `yaml:"docker"`
+	Modes      map[string]string `yaml:"modes"`
+	Project    string            `yaml:"project"`
+	Deployment []Deployment      `yaml:"deployment,omitempty"`
+}
+
+type ContainerMap struct {
 	Registry    string `yaml:"registry,omitempty"`
 	Namespace   string `yaml:"namespace,omitempty"`
 	Name        string `yaml:"name,omitempty"`
@@ -38,15 +69,15 @@ func NewLedoFile(s string) (*LedoFile, error) {
 	t := &LedoFile{}
 	err = yaml.Unmarshal(yamlFile, t)
 
-	//Replace with env variables
+	// Replace with env variables
 	mainService := os.Getenv("MAIN_SERVICE")
 	if len(mainService) != 0 {
-		t.Docker.MainService = mainService
+		t.Container.MainService = mainService
 	}
 
 	mainShell := os.Getenv("MAIN_SHELL")
 	if len(mainShell) != 0 {
-		t.Docker.Shell = mainShell
+		t.Container.Shell = mainShell
 	}
 
 	if err != nil {

@@ -1,0 +1,14 @@
+pull_request_rules:
+  - name: Automatic merge on approval
+    conditions:
+      - "#approved-reviews-by>=1"
+    actions:
+      merge:
+        method: squash
+  - name: comment with default
+    conditions:
+      - label=comment
+    actions:
+      comment:
+        message: I 💙 Mergify
+        bot_account: Autobot

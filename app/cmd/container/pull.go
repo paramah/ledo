@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"
@@ -8,8 +8,8 @@ import (
 
 var CmdComposePull = cli.Command{
 	Name:        "pull",
-	Usage:       "docker image pull",
-	Description: `Pull docker image from registry server`,
+	Usage:       "container image pull",
+	Description: `Pull container image from registry server`,
 	Action:      RunComposePull,
 }
 

@@ -35,7 +35,7 @@ RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 RUN chown www-data:www-data ${DIR} && /bin/composer self-update --2
 USER www-data
 
-# For Docker build cache
+# For Container build cache
 COPY ./composer.* $DIR/
 RUN /bin/composer install --no-scripts --no-interaction --no-autoloader && composer clear-cache
 

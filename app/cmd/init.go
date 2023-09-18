@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"html/template"
+	"os"
+
 	"github.com/paramah/ledo/app/helper"
 	"github.com/paramah/ledo/app/logger"
 	"github.com/paramah/ledo/app/modules/compose"
@@ -9,8 +12,6 @@ import (
 	"github.com/paramah/ledo/app/modules/interact"
 	"github.com/paramah/ledo/app/templates"
 	"github.com/urfave/cli/v2"
-	"html/template"
-	"os"
 )
 
 var CmdInit = cli.Command{
@@ -29,7 +30,7 @@ func runInitLedo(cmd *cli.Context) error {
 		logger.Error("Ledo config file not found!", err)
 	}
 
-	data, err := interact.InitLedoProject(config.Docker)
+	data, err := interact.InitLedoProject(config.Container)
 	if err != nil {
 		logger.Critical("Initialize ledo critical error", err)
 	}
@@ -47,8 +48,8 @@ func runInitLedo(cmd *cli.Context) error {
 	if err != nil {
 		logger.Critical(".ledo.yml render template error", err)
 	}
-	//advRun = false
-	advRun = interact.InitAdvancedConfigurationAsk("Run advanced docker mode configuration?")
+	// advRun = false
+	advRun = interact.InitAdvancedConfigurationAsk("Run advanced container mode configuration?")
 	if advRun == true {
 		ctx := context.InitCommand(cmd)
 		dConf, _ := interact.InitDocker()
@@ -68,12 +69,12 @@ func runInitLedo(cmd *cli.Context) error {
 			}
 		}
 
-		_, err = helper.CreateFile(ctx,"./docker/docker-entrypoint.sh", templates.DockerEntrypointTemplate_bash, true)
+		_, err = helper.CreateFile(ctx, "./docker/docker-entrypoint.sh", templates.DockerEntrypointTemplate_bash, true)
 		if err != nil {
 			logger.Critical("Create docker-entrypoint.sh file error", err)
 		}
 
-		_, err = helper.CreateFile(ctx,"./docker/test-entrypoint.sh", templates.TestEntrypointTemplate_bash, true)
+		_, err = helper.CreateFile(ctx, "./docker/test-entrypoint.sh", templates.TestEntrypointTemplate_bash, true)
 		if err != nil {
 			logger.Critical("Create test-entrypoint.sh file error", err)
 		}

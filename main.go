@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/paramah/ledo/app/cmd"
-	"github.com/paramah/ledo/app/modules/compose"
 	"github.com/urfave/cli/v2"
 )
 
@@ -17,15 +16,14 @@ func GetCurrentVersion() string {
 
 func main() {
 	app := cli.NewApp()
-	compose.CheckDockerComposeVersion()
 	app.Name = "ledo"
-	app.Usage = "docker-compose and docker workflow improvement tool"
+	app.Usage = "docker-compose and container workflow improvement tool"
 	app.Description = appDescription
 	app.CustomAppHelpTemplate = helpTemplate
 	app.Version = GetCurrentVersion()
 	app.Commands = []*cli.Command{
 		&cmd.CmdInit,
-		&cmd.CmdDocker,
+		&cmd.CmdContainer,
 		&cmd.CmdImage,
 		&cmd.CmdSecrets,
 		&cmd.CmdMode,
@@ -41,14 +39,14 @@ func main() {
 	}
 }
 
-var appDescription = `LeadDocker (ledo) is a simple tool for improve docker and docker-compose workflow in your project.
+var appDescription = `LeadDocker (ledo) is a simple tool for improve container and docker-compose workflow in your project.
 What you can do with this tool:
 => create and manage docker-compose workflow in a project
-=> build docker image for project (automatic fqn and docker registry)
-=> login to the docker registry (with AWS ECR support)
+=> build container image for project (automatic fqn and container registry)
+=> login to the container registry (with AWS ECR support)
 
 LeadDocker is helpful in a continuous methodologies. 
-If you want use it as a docker service, try dind image: https://hub.docker.com/r/paramah/dind
+If you want use it as a container service, try dind image: https://hub.docker.com/r/paramah/dind
 
 Enjoy (-_-)
 `
@@ -78,7 +76,7 @@ var helpTemplate = bold(`
 
  EXAMPLES
    ledo init                       # init ledo in your project
-   ledo docker ps                  # print list of docker containers
+   ledo container ps               # print list of container containers
 
   
  ABOUT

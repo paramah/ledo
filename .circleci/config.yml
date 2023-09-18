@@ -20,6 +20,6 @@ jobs:
           name: goreleaser
           command: curl -sL https://git.io/goreleaser | bash
       - run:
-          name: Trigger docker `paramah/dind` build
+          name: Trigger container `paramah/dind` build
           command: |
             curl -X POST "https://drone.cynarski.pl/api/repos/Docker/dind/builds" -H "Authorization: Bearer ${DRONE_TOKEN}"

@@ -1,4 +1,4 @@
-package docker
+package container
 
 import (
 	"github.com/paramah/ledo/app/modules/compose"

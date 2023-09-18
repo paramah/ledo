@@ -5,7 +5,7 @@ import (
 	"github.com/paramah/ledo/app/modules/config"
 )
 
-func InitLedoProject(dockerConfig config.DockerMap) (config.DockerMap, error) {
+func InitLedoProject(dockerConfig config.ContainerMap) (config.ContainerMap, error) {
 	if dockerConfig.Registry == "" {
 		dockerConfig.Registry = ""
 	}
@@ -21,7 +21,7 @@ func InitLedoProject(dockerConfig config.DockerMap) (config.DockerMap, error) {
 	var qs = []*survey.Question{
 		{
 			Name:      "Registry",
-			Prompt:    &survey.Input{Message: "Enter docker registry address: ", Default: dockerConfig.Registry, Help: "Docker registry for main service image"},
+			Prompt:    &survey.Input{Message: "Enter container registry address: ", Default: dockerConfig.Registry, Help: "Container registry for main service image"},
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},
@@ -51,7 +51,7 @@ func InitLedoProject(dockerConfig config.DockerMap) (config.DockerMap, error) {
 		},
 		{
 			Name:      "Username",
-			Prompt:    &survey.Input{Message: "Enter docker main service username: ", Default: dockerConfig.Username, Help: "Default user, if set ledo run command was execute with sudo user"},
+			Prompt:    &survey.Input{Message: "Enter container main service username: ", Default: dockerConfig.Username, Help: "Default user, if set ledo run command was execute with sudo user"},
 			Validate:  survey.Required,
 			Transform: survey.ToLower,
 		},
@@ -60,7 +60,7 @@ func InitLedoProject(dockerConfig config.DockerMap) (config.DockerMap, error) {
 	err := survey.Ask(qs, &dockerConfig)
 
 	if err != nil {
-		return config.DockerMap{}, err
+		return config.ContainerMap{}, err
 	}
 
 	return dockerConfig, err
