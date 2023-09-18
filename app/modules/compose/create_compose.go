@@ -10,8 +10,8 @@ import (
 )
 
 func CreateComposeFile(ctx *context.LedoContext, dockerProject helper.DockerProjectCfg, composeMode string) error {
-	if _, err := os.Stat("./container"); os.IsNotExist(err) {
-		err := os.Mkdir("./container", 0755)
+	if _, err := os.Stat("./docker"); os.IsNotExist(err) {
+		err := os.Mkdir("./docker", 0755)
 		if err != nil {
 			log.Fatal(err)
 		}
