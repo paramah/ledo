@@ -1,6 +1,6 @@
 package templates
 
-var LedoConfigurationFileTemplate = `
+var LedoConfigurationFileTemplate = `runtime: docker
 container:
   registry: {{.Registry}}
   namespace: {{.Namespace}}
