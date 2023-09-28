@@ -8,7 +8,7 @@ require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/Masterminds/semver v1.5.0
 	github.com/adrg/xdg v0.4.0
-	github.com/aws/aws-sdk-go v1.45.11
+	github.com/aws/aws-sdk-go v1.45.14
 	github.com/hashicorp/go-envparse v0.1.0
 	github.com/hashicorp/vault/api v1.10.0
 	github.com/pterm/pterm v0.12.69
