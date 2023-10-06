@@ -134,7 +134,7 @@ func ExecComposerBuild(ctx *context.LedoContext, command cli.Context) {
 func ExecComposerDown(ctx *context.LedoContext) {
 	PrintCurrentMode(ctx)
 	args := ctx.ComposeArgs
-	args = append(args, "down")
+	args = append(args, "down", "--volumes")
 	ctx.ExecCmd(ctx.GetRuntimeCompose(), args[0:])
 }
 
