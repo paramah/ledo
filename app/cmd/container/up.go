@@ -24,6 +24,12 @@ var CmdDockerUp = cli.Command{
 			Usage:    "build local images before run",
 			Required: false,
 		},
+		&cli.BoolFlag{
+			Name:     "logs",
+			Aliases:  []string{"l"},
+			Usage:    "show logs after up",
+			Required: false,
+		},
 	},
 }
 
@@ -33,5 +39,8 @@ func RunComposeUp(cmd *cli.Context) error {
 		compose.ExecComposerBuild(ctx, *cmd)
 	}
 	compose.ExecComposerUp(ctx, cmd.Bool("no-detach"))
+	if cmd.Bool("logs") {
+		compose.ExecComposerLogs(ctx, cmd.Args())
+	}
 	return nil
 }
