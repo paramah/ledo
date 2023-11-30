@@ -21,6 +21,8 @@ Ledo supports `docker` and `podman`, in the case of `podman` you need to configu
 
 [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#ledo:matrix.cynarski.dev)
 
+[![Discord](https://dcbadge.vercel.app/api/server/INVITEID)](https://discord.gg/hN8pTHUTwV)
+
 # Install
 
 ## Using binnary
