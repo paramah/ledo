@@ -20,8 +20,7 @@ Ledo supports `docker` and `podman`, in the case of `podman` you need to configu
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/paramah/ledo)
 
 [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#ledo:matrix.cynarski.dev)
-
-[![Discord](https://dcbadge.vercel.app/api/server//hN8pTHUTwV)](https://discord.gg/hN8pTHUTwV)
+[![Discord](https://dcbadge.vercel.app/api/server//hN8pTHUTwV?style=flat)](https://discord.gg/hN8pTHUTwV)
 
 # Install
 
