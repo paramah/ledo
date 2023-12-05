@@ -12,7 +12,7 @@
     <meta name="description" content="Ledo documentation site." />
 
     <!-- Default Theme (see https://docsify.js.org/#/themes) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css">
   </head>
 
   <body>
@@ -24,18 +24,21 @@
     </script>
 
     <script>
-      // Docsify Configuration (see https://docsify.js.org/#/configuration)
       window.$docsify = {
         name: "Ledo documentation",
+        logo: "logo.png",
+        repo: 'https://github.com/paramah/ledo',
+        ga: 'G-XV4YVKTHKK',
 
-        // Sidebar Configuration
         auto2top: true,
         loadSidebar: true,
+        autoHeader: true,
+        auto2top: true,
         maxLevel: 0,
-        // Set subMaxLevel to 0 to remove automatic display of page table of contents (TOC) in Sidebar
         subMaxLevel: 3,
 
-        // Search Plugin Configuration
+        themeColor: '#E75300',
+
         search: {
           placeholder: "Type to search",
           noData: "No matches found.",
