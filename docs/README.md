@@ -1,4 +1,6 @@
-# Docsify Template
+# LeDo
+
+Narzędzie pozwalające na automatyzację pracy ze stackiem docerowym lub podmanowym. Upraszcza uruchamianie projektów w różnych trybach oraz procesy CI oparte o docker/podman.
 
 > A simple [Docsify](https://github.com/docsifyjs/docsify/) template for creating Markdown-based documentation sites, with no build process required.
 

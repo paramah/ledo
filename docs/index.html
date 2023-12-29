@@ -17,23 +17,16 @@
 
   <body>
     <div id="app"></div>
-    <script type="module">
-      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-      mermaid.initialize({ startOnLoad: true });
-      window.mermaid = mermaid;
-    </script>
 
     <script>
       window.$docsify = {
         name: "Ledo documentation",
         logo: "logo.png",
         repo: 'https://github.com/paramah/ledo',
-        ga: 'G-XV4YVKTHKK',
 
         auto2top: true,
         loadSidebar: true,
         autoHeader: true,
-        auto2top: true,
         maxLevel: 0,
         subMaxLevel: 3,
 
@@ -49,12 +42,15 @@
     </script>
 
     <!-- Required -->
-    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
 
     <!-- Recommended -->
-    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-terminal-block@1.0.3"></script>
 
+    <script src="//unpkg.com/prismjs/components/prism-go.min.js"></script>
+    <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
 
     <script src="//unpkg.com/docsify-kroki"></script>
 
