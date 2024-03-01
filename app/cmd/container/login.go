@@ -8,7 +8,6 @@ import (
 
 var CmdDockerLogin = cli.Command{
 	Name:        "login",
-	Aliases:     []string{"l"},
 	Usage:       "Docker Registry login",
 	Description: `Login to container registry`,
 	Subcommands: []*cli.Command{
