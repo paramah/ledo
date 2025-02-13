@@ -11,7 +11,8 @@
   - [Docker compose basics](#docker-compose)
 - [Thanks](#thanks)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparamah%2Fledo.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparamah%2Fledo?ref=badge_smal
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparamah%2Fledo.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparamah%2Fledo?ref=badge_large&issueType=license)
+
 
 # About
 
