@@ -11,6 +11,8 @@
   - [Docker compose basics](#docker-compose)
 - [Thanks](#thanks)
 
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparamah%2Fledo.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparamah%2Fledo?ref=badge_smal
+
 # About
 
 Ledo (LeadDocker) is a simple tool to facilitate the daily work with docker-compose in a project (it doesn't work in swarm for now). It allows you to create run modes and fully automate them.
