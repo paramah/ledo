@@ -21,6 +21,7 @@ Ledo supports `docker` and `podman`, in the case of `podman` you need to configu
 
 [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#ledo:matrix.cynarski.dev)
 [![Discord](https://dcbadge.vercel.app/api/server//hN8pTHUTwV?style=flat)](https://discord.gg/hN8pTHUTwV)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparamah%2Fledo.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparamah%2Fledo?ref=badge_shield)
 
 # Install
 
@@ -96,3 +97,7 @@ For `podman` Ledo executes `podman-compose` command.
 
 - [Jazzy Innovations](https://jazzy.pro)
 - [Stream Sage](https://streamsage.io)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparamah%2Fledo.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparamah%2Fledo?ref=badge_large)
