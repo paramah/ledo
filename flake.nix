@@ -1,19 +1,21 @@
 {
-  description = "Golang full flake: devshell + build + release";
+  description = "Ledo flake";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs, ... }: 
     let
-      system = builtins.currentSystem;
+      system = builtins.currentSystem or (if builtins ? currentSystem then builtins.currentSystem else "aarch64-darwin");
+
       pkgs = import nixpkgs { inherit system; };
 
-      goVersion = "1.22"; # zmień jeśli chcesz inną wersję
+      goVersion = "1.24"; # zmień jeśli chcesz inną wersję
 
       goPkgs = {
+        "1.24" = pkgs.go_1_24;
+        "1.23" = pkgs.go_1_23;
         "1.22" = pkgs.go_1_22;
         "1.21" = pkgs.go_1_21;
-        "1.20" = pkgs.go_1_20;
       };
 
       selectedGo = if goPkgs ? ${goVersion}
@@ -21,7 +23,7 @@
         else pkgs.go;
 
       printInfo = ''
-        echo -e "\033[32m🚀 Projekt Golang | Używasz Go ${goVersion}\033[0m"
+        echo -e "\033[32m🚀 LeDo | Using Go version ${goVersion}\033[0m"
       '';
 
     in
@@ -40,19 +42,22 @@
 
         shellHook = ''
           ${printInfo}
-          echo -e "\033[34m🛠️  Środowisko: DEVELOPMENT\033[0m"
+          echo -e "\033[34m🛠️  Environment: DEVELOPMENT\033[0m"
         '';
       };
 
-      packages.${system}.my-go-app = pkgs.buildGoModule {
-        pname = "my-go-app";
+      packages.${system}.default = pkgs.buildGoModule {
+        pname = "ledo";
         version = "0.1.0";
 
         src = ./.;
 
-        vendorSha256 = null; # ustawi się automatycznie po pierwszym buildzie
+        vendorHash = "sha256-Xn7icXrEKQuJAGiSyReYGoNdPAsIziEq1KHvXc6HEPU="; 
 
-        buildFlags = [ "-v" ];
+        modVendor = true;
+
+        
+        buildFlags = [ "-v -mod=vendor" ];
 
         ldflags = [
           "-s" "-w"
@@ -60,7 +65,7 @@
         ];
 
         meta = {
-          description = "Example Go app built via Flake";
+          description = "Ledo built via Flake";
           license = pkgs.lib.licenses.mit;
         };
       };
