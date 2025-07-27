@@ -8,7 +8,6 @@ import (
 
 var CmdComposeLogs = cli.Command{
 	Name:        "logs",
-	Aliases:     []string{"l"},
 	Usage:       "logs from containers",
 	Description: `Get fqn container image defined as main service in config file`,
 	Action:      RunComposeLogs,
