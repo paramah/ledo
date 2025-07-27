@@ -8,7 +8,6 @@ import (
 
 var CmdComposeRun = cli.Command{
 	Name:        "run",
-	Aliases:     []string{"r"},
 	Usage:       "run cmd in main container",
 	Description: `Run command in main container`,
 	ArgsUsage:   "[<cmd>]",

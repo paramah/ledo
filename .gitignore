@@ -7,3 +7,6 @@ main
 ledo
 .ledo-back.yml
 .scannerwork
+result
+vendor
+.direnv

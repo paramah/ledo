@@ -13,13 +13,9 @@ workflows:
 jobs:
   release:
     docker:
-      - image: cimg/go:1.21.0
+      - image: cimg/go:1.24.0
     steps:
       - checkout
       - run:
           name: goreleaser
           command: curl -sL https://git.io/goreleaser | bash
-      - run:
-          name: Trigger container `paramah/dind` build
-          command: |
-            curl -X POST "https://drone.cynarski.pl/api/repos/Docker/dind/builds" -H "Authorization: Bearer ${DRONE_TOKEN}"
