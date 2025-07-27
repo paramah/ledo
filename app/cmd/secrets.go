@@ -6,10 +6,10 @@ import (
 )
 
 var CmdSecrets = cli.Command{
-	Name:        "secrets",
-	Aliases:     []string{"s"},
-	Category:    catHelpers,
-	Usage:       "secrets helper",
+	Name:     "secrets",
+	Aliases:  []string{"s"},
+	Category: catHelpers,
+	Usage:    "secrets helper",
 	Description: `Managing secrets with hashicorp vault.
 
 Requires a vault server with a KV2 resource prefixed /environment to function properly.

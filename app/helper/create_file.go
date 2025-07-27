@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-func CreateFile(ctx *context.LedoContext, path string, templateBody string, is_executable ...bool) (bool,error){
+func CreateFile(ctx *context.LedoContext, path string, templateBody string, is_executable ...bool) (bool, error) {
 	executable := false
 
 	if len(is_executable) > 0 {
@@ -35,11 +35,11 @@ func CreateFile(ctx *context.LedoContext, path string, templateBody string, is_e
 	}
 
 	if executable {
-			err = os.Chmod(path, 0755)
-			if err != nil {
-				logger.Error("Chmod error", err)
-				return false, err
-			}
+		err = os.Chmod(path, 0755)
+		if err != nil {
+			logger.Error("Chmod error", err)
+			return false, err
+		}
 	}
 
 	return true, nil

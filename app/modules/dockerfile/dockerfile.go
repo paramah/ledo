@@ -16,7 +16,7 @@ func CreateDockerFile(cfg helper.DockerProjectCfg) error {
 	}
 
 	templateName := templates.DockerFileTemplate_default
-	
+
 	if cfg.DockerBaseImage == "paramah/php" {
 		templateName = templates.DockerFileTemplate_php
 	}

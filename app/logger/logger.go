@@ -30,7 +30,6 @@ func Info(msg string) {
 	pterm.Success.Printf("%v\n", msg)
 }
 
-
 func Debug(msg string) {
 	pterm.Debug.Prefix = pterm.Prefix{
 		Text:  levelDebugName,
