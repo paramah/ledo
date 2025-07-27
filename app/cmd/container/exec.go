@@ -8,6 +8,7 @@ import (
 
 var CmdComposeExec = cli.Command{
 	Name:        "exec",
+	Aliases:     []string{"e"},
 	Usage:       "exec cmd in a main running container",
 	Description: `Execute command in a main running container`,
 	ArgsUsage:   "[<cmd>]",
