@@ -87,7 +87,10 @@ func (lx *LedoContext) GetRuntimeCompose() string {
 }
 
 func (lx *LedoContext) ExecCmdOutput(cmd string, cmdArgs []string) ([]byte, error) {
-	command, _ := exec.Command(cmd, cmdArgs...).Output()
+	command, err := exec.Command(cmd, cmdArgs...).Output()
+	if err != nil {
+		return nil, err
+	}
 	return command, nil
 }
 
