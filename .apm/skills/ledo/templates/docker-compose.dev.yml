@@ -1,0 +1,11 @@
+# Dev override (mode: dev) — layered on top of docker-compose.yml.
+# Builds locally instead of pulling, and mounts the working tree for live reload.
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/app          # mount source for live editing; adjust the container path to your image
+    environment:
+      - APP_ENV=dev

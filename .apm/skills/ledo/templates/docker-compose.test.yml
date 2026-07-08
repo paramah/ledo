@@ -1,0 +1,11 @@
+# Test override (mode: test) — layered on top of docker-compose.yml.
+# Runs the test entrypoint. Pair with `ledo container uponce`, which starts the stack,
+# waits, and exits with the main service's exit code — ideal for CI.
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    entrypoint: ["/test-entrypoint.sh"]   # or override command: to run your test suite
+    environment:
+      - APP_ENV=test

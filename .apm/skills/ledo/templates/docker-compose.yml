@@ -1,0 +1,16 @@
+# Base compose file (mode: base) — shared across every mode.
+# Referenced first in each `modes:` entry so overrides layer on top of it.
+# Env vars (REGISTRY/NAMESPACE/NAME/...) come from the repo-root .env that ledo passes
+# via --env-file. `app` here must match `main_service` in .ledo.yml.
+services:
+  app:
+    image: ${REGISTRY}/${NAMESPACE}/${NAME}:${TAG:-latest}
+    env_file:
+      - ../.env
+    networks:
+      - default
+    restart: unless-stopped
+
+networks:
+  default:
+    name: ${NAMESPACE}

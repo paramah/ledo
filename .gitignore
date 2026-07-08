@@ -3,8 +3,10 @@ dist/
 dist
 .env
 .ledo-mode
-main
-ledo
+# Root build artifacts — anchored so nested paths named "main"/"ledo"
+# (e.g. .apm/skills/ledo/) are NOT ignored.
+/main
+/ledo
 .ledo-back.yml
 .scannerwork
 result

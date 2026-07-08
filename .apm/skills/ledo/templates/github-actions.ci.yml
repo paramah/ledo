@@ -1,0 +1,36 @@
+# GitHub Actions pipeline driving ledo. Copy to .github/workflows/ci.yml and adapt.
+# Secrets to set in the repo: REGISTRY_USERNAME, REGISTRY_PASSWORD (and REGISTRY host if not
+# hardcoded in .ledo.yml). Pattern: install ledo -> test via `uponce` -> build -> push on tags.
+name: ci
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  ledo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ledo
+        run: curl -sL https://raw.githubusercontent.com/paramah/ledo/master/install.sh | sudo sh
+
+      - name: Test (run stack once, exit with the main service's code)
+        run: |
+          ledo mode select test
+          ledo container uponce
+
+      # ledo only logs in for AWS ECR (`ledo container login ecr`); for every other registry
+      # log in with plain docker login <registry>. Swap for `ledo container login ecr -r ... -k ... -s ...` on ECR.
+      - name: Registry login
+        if: startsWith(github.ref, 'refs/tags/')
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login "$(ledo image fqn | cut -d/ -f1)" -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+
+      - name: Build & push image
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          ledo image build "$VERSION"
+          ledo image push "$VERSION"

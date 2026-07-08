@@ -1,0 +1,15 @@
+# Template .ledo.yml — copy to the repo root as `.ledo.yml` and adapt.
+# Customize: registry/namespace/name/main_service, and keep `modes:` entries pointing at
+# compose files that actually exist. IMPORTANT: the container block key is `docker:`.
+runtime: docker                     # docker | podman
+docker:
+  registry: registry.example.com    # container registry host
+  namespace: my-group               # also becomes compose --project-name and the network name
+  name: my-app                      # image name -> FQN registry/namespace/name
+  main_service: app                 # main compose service (shell/run/exec/uponce target)
+  shell: /bin/sh                    # default interactive shell in the main service
+  # username: www-data              # uncomment to run/exec as this user via `sudo -E -u`
+modes:
+  base: docker/docker-compose.yml
+  dev:  docker/docker-compose.yml docker/docker-compose.dev.yml
+  test: docker/docker-compose.yml docker/docker-compose.test.yml

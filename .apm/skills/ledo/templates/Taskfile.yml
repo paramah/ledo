@@ -1,0 +1,56 @@
+# Taskfile.yml (https://taskfile.dev) — thin, discoverable wrappers over ledo.
+# Contributors run `task up` / `task ci` without needing to know ledo's flags.
+# Adapt VERSION and any project-specific tasks.
+version: "3"
+
+vars:
+  VERSION: '{{.VERSION | default "latest"}}'
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  up:
+    desc: Start the stack for the current mode (build first)
+    cmds:
+      - ledo container up --build
+
+  down:
+    desc: Stop the stack and REMOVE volumes (destructive)
+    prompt: This runs `ledo container down` which deletes volumes. Continue?
+    cmds:
+      - ledo container down
+
+  sh:
+    desc: Open a shell in the main service
+    cmds:
+      - ledo container shell
+
+  logs:
+    desc: Follow logs
+    cmds:
+      - ledo container logs
+
+  build:
+    desc: Build the project image (task build VERSION=1.2.3)
+    cmds:
+      - ledo image build {{.VERSION}}
+
+  push:
+    desc: Push the project image (task push VERSION=1.2.3)
+    cmds:
+      - ledo image push {{.VERSION}}
+
+  ci:
+    desc: Run the stack once and exit with the main service's code (test/CI)
+    cmds:
+      - ledo mode select test
+      - ledo container uponce
+
+  mode:
+    desc: List modes and show the active one
+    cmds:
+      - ledo mode list
