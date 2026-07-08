@@ -1,0 +1,37 @@
+# Microsoft APM (Agent Package Manager) manifest.
+# Declares this repo as an installable agent package. Consumers add it to their
+# own apm.yml dependencies, then `apm install --target claude|copilot` deploys
+# the ledo skill + instructions into .claude/ / .github/ automatically.
+#
+# Docs: https://microsoft.github.io/apm/
+name: ledo
+version: 1.6.2
+description: >-
+  Drive the ledo (LeadDocker) CLI — scaffold .ledo.yml, mode-aware
+  docker-compose files, CI pipelines (GitHub/GitLab/Gitea), and Taskfiles
+  for containerized projects.
+author: paramah
+license: MIT
+homepage: https://leaddocker.tech
+repository: https://github.com/paramah/ledo
+keywords:
+  - ledo
+  - leaddocker
+  - docker-compose
+  - podman
+  - ci-cd
+  - taskfile
+  - scaffolding
+# hybrid = ships both a skill (.apm/skills) and always-on instructions (.apm/instructions)
+type: hybrid
+targets:
+  - claude
+  - copilot
+# auto-discover and deploy everything under .apm/
+includes: auto
+dependencies:
+  apm: []
+  mcp: []
+devDependencies:
+  apm: []
+scripts: {}
