@@ -13,9 +13,10 @@ workflows:
 jobs:
   release:
     docker:
-      - image: cimg/go:1.24.0
+      - image: cimg/go:1.24.5
     steps:
       - checkout
       - run:
           name: goreleaser
-          command: curl -sL https://git.io/goreleaser | bash
+          # git.io was shut down (Apr 2022); use GoReleaser's official run script.
+          command: curl -sfL https://goreleaser.com/static/run | bash -s -- release --clean
