@@ -117,7 +117,11 @@ func ExecPruneContainers(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting containers to prune...")
-	output, _ := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	output, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	if err != nil {
+		spinnerLiveText.Fail("Getting containers to prune... Error!")
+		return err
+	}
 	spinnerLiveText.Success("Getting containers to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -132,7 +136,7 @@ func ExecPruneContainers(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, container)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
+		_, err = ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -140,7 +144,7 @@ func ExecPruneContainers(ctx *context.LedoContext) error {
 		progressbar.Increment()
 	}
 
-	_, err := progressbar.Stop()
+	_, err = progressbar.Stop()
 	if err != nil {
 		return err
 	}
@@ -159,7 +163,11 @@ func ExecPruneImages(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting images to prune...")
-	output, _ := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	output, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	if err != nil {
+		spinnerLiveText.Fail("Getting images to prune... Error!")
+		return err
+	}
 	spinnerLiveText.Success("Getting images to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -174,7 +182,7 @@ func ExecPruneImages(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rmi")
 		rmargs = append(rmargs, image)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
+		_, err = ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -182,7 +190,7 @@ func ExecPruneImages(ctx *context.LedoContext) error {
 		progressbar.Increment()
 	}
 
-	_, err := progressbar.Stop()
+	_, err = progressbar.Stop()
 	if err != nil {
 		return err
 	}
@@ -201,7 +209,11 @@ func ExecPruneVolumes(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting volumes to prune...")
-	output, _ := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	output, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	if err != nil {
+		spinnerLiveText.Fail("Getting volumes to prune... Error!")
+		return err
+	}
 	spinnerLiveText.Success("Getting volumes to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -217,7 +229,7 @@ func ExecPruneVolumes(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, image)
 		rmargs = append(rmargs, "--force")
-		_, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
+		_, err = ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -225,7 +237,7 @@ func ExecPruneVolumes(ctx *context.LedoContext) error {
 		progressbar.Increment()
 	}
 
-	_, err := progressbar.Stop()
+	_, err = progressbar.Stop()
 	if err != nil {
 		return err
 	}
@@ -244,7 +256,11 @@ func ExecPruneNetworks(ctx *context.LedoContext) error {
 	containerArgs = append(containerArgs, formatArgs...)
 
 	spinnerLiveText, _ := pterm.DefaultSpinner.Start("Getting networks to prune...")
-	output, _ := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	output, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), containerArgs[0:])
+	if err != nil {
+		spinnerLiveText.Fail("Getting networks to prune... Error!")
+		return err
+	}
 	spinnerLiveText.Success("Getting networks to prune... Done!")
 
 	lines := strings.Split(string(output[:]), "\n")
@@ -259,7 +275,7 @@ func ExecPruneNetworks(ctx *context.LedoContext) error {
 		rmargs = append(rmargs, "network")
 		rmargs = append(rmargs, "rm")
 		rmargs = append(rmargs, network)
-		_, err := ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
+		_, err = ctx.ExecCmdOutput(ctx.GetRuntimeCommand(), rmargs[0:])
 		if err != nil {
 			return err
 		}
@@ -267,7 +283,7 @@ func ExecPruneNetworks(ctx *context.LedoContext) error {
 		progressbar.Increment()
 	}
 
-	_, err := progressbar.Stop()
+	_, err = progressbar.Stop()
 	if err != nil {
 		return err
 	}
